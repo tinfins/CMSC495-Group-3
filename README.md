@@ -2,11 +2,9 @@
 ## Overview
 TODO:
 
-
 ## Getting Started
 ### Installation
 TODO: 
-
 
 ## For Developers:
 For Developers interested in using our application as a base to building their own app or for learning purposes, please see our [LICENSE](https://github.com/tinfins/CMSC495-Group-3/blob/master/LICENSE).
@@ -22,7 +20,6 @@ TODO:
 
 ## Built With
 TODO:
-
 
 ## Team
 - [James Horne](https://github.com/jmhorne) (Project Manager)
