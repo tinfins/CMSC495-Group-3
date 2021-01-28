@@ -8,4 +8,4 @@
 - The menu bar should not appear on the login screen
 - Menu bar should appear on the test page
 
-## **I HAVE NO IDEA SHAT THIS LOOKS LIKE ON A COMPUTER, PLEASE VERIFY IT FOR ME**
+## **I HAVE NO IDEA WHAT THIS LOOKS LIKE ON A COMPUTER, PLEASE VERIFY IT FOR ME**
