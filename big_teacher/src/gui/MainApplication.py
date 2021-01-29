@@ -4,6 +4,7 @@ import MenuBarGui
 import LoginGui
 import testPage
 
+
 class MainApplication(tk.Tk):
     """
     Main entry point for GUI portion of application
@@ -42,6 +43,7 @@ class MainApplication(tk.Tk):
         # Shows menu on all views but the login view
         if page_name != "Login":
             MenuBarGui.Menu_Bar_Gui(parent=self.container, controller=self)
+        self.title(page_name)
         frame.tkraise()
     
 
