@@ -1,15 +1,15 @@
-##########################
-# Purpose: Executes multiple SQL  #
-# statements in Python with            #
-# mysql.connector.                            #
-#                                                            #
+####################################
+# Purpose: Executes multiple SQL   #
+# statements in Python with        #
+# mysql.connector.                 #
+#                                  #
 # Licensed under the MIT license.  #
-# See LICENSE file in project root   #
-# for details.                                        #
-#                                                            #
-# https://github.com/tinfins/           #
-# CMSC495-Group-3/                        #
-##########################
+# See LICENSE file in project root #
+# for details.                     #
+#                                  #
+# https://github.com/tinfins/      #
+# CMSC495-Group-3/                 #
+####################################
 
 import sys
 import MySQLdb as mdb
