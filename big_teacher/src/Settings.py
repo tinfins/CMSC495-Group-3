@@ -6,17 +6,17 @@ class Settings:
     """
     Settings class to read and write application config to file
     """
-    def __init__(self, configFile, section):
+    def __init__(self, config_file, section):
         """
-        :param config file:String:Name of config file to read/write
+        :param config_file:String:Name of config file to read/write
         :param section:String:Name of section to be added/modified
         """ 
         self.config = ConfigParser()
-        self.configFile = configFile
+        self.configFile = config_file
         self.config.read(self.configFile)
         self.db_section = section
     
-    def dbConfigWrite(self, **settings):
+    def db_config_write(self, **settings):
         """
         Writes config to file
         :param:String:Database endpoint conn
@@ -37,11 +37,10 @@ class Settings:
         with open(self.configFile, "w") as file:
             self.config.write(file)
         
-        config_values = self.dbConfigRead()
+        config_values = self.db_config_read()
         return config_values
-            
-    
-    def dbConfigRead(self):
+
+    def db_config_read(self):
         """
         Reads config from file
         :return:String:host, username, password, db
