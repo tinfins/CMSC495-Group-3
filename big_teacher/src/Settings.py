@@ -39,7 +39,6 @@ class Settings:
         
         config_values = self.dbConfigRead()
         return config_values
-        
             
     
     def dbConfigRead(self):
@@ -48,10 +47,5 @@ class Settings:
         :return:String:host, username, password, db
         """
         config_values = dict(self.config.items(self.db_section))
-        #host = self.config.get(self.db_section, "host")
-        #username = self.config.get(self.db_section, "username")
-        #password = self.config.get(self.db_section, "password")
-        #db = self.config.get(self.db_section, "db_name")
-        
-        #return (host, username, password, db)
+
         return config_values
