@@ -1,3 +1,13 @@
+###############################################
+# Purpose: Creates or modifies sections of    #
+# configuration files.                        #
+#                                             #
+# Licensed under the MIT license. See LICENSE #
+# file in project root for details.           #
+#                                             #
+# https://github.com/tinfins/CMSC495-Group-3/ #
+###############################################
+
 #pylint:disable=C0103
 from configparser import ConfigParser
 

@@ -10,10 +10,20 @@ TODO:
 For Developers interested in using our application as a base to building their own app or for learning purposes, please see our [LICENSE](https://github.com/tinfins/CMSC495-Group-3/blob/master/LICENSE).
 
 ## Development Environment Setup
-### Prerequisites
-TODO:
+### Pre-requisites
+Python 3.8
 ### Required dependencies
-TODO:
+- ttkthemes~=3.2.0
+- SQLAlchemy~=1.3.22
+- PyMySQL~=1.0.2
+  
+(See requirements.txt file for most up to date dependencies)
+
+### Development Setup
+- Clone github repository
+- Create a Python virtual environment
+- Activate your virtual environment
+- Install required dependencies (Run 'pip3 install -r requirements.txt')
 
 ## Running tests
 TODO:
