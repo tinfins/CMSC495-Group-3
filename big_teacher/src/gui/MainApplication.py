@@ -1,8 +1,13 @@
 import tkinter as tk
 from ttkthemes import ThemedStyle
+import logging
+import logging.config
 import MenuBarGui
 import LoginGui
-import testPage
+import DataView
+
+logging.config.fileConfig(fname='../config.ini', disable_existing_loggers=False)
+logger = logging.getLogger(__name__)
 
 
 class MainApplication(tk.Tk):
@@ -27,12 +32,12 @@ class MainApplication(tk.Tk):
         self.frames = {}
         # Each view/page should be added as a frame in the style shown below
         self.frames["Login"] = LoginGui.Login_Gui(parent=self.container, controller=self)
-        self.frames["Test Page"] = testPage.Test_Page(parent=self.container, controller=self)
+        self.frames["Data View"] = DataView.Test_Page(parent=self.container, controller=self)
         
         # Set frames in container
         # Each frame must have a layout in the style below
         self.frames["Login"].grid(row=1, column=0, sticky="nsew")
-        self.frames["Test Page"].grid(row=1, column=0, sticky="nsew")
+        self.frames["Data View"].grid(row=1, column=0, sticky="nsew")
         
         self.show_frame("Login")
 

@@ -17,9 +17,13 @@ class Test_Page(tk.Frame):
                                   'SDEV 460-5678'
                                   )
 
-        #self.grid_rowconfigure(1, weight=1, uniform='row')
+        self.classSubject.set('default')
+
+        viewLabelFrame = ttk.LabelFrame(self, text='Data View', height=600, width=800)
+
         self.grid_columnconfigure(0, weight=1, uniform='column')
         self.grid_columnconfigure(1, weight=1, uniform='column')
         self.grid_columnconfigure(2, weight=1, uniform='column')
         label.grid(row=1,column=0, columnspan=2, padx=5, pady=25)
         self.classSubject.grid(row=1,column=1, padx=35, pady=25)
+        viewLabelFrame.grid(row=3, column=0, rowspan=3, columnspan=15, padx=75, pady=75)
