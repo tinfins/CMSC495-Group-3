@@ -5,7 +5,6 @@ from tkinter import ttk
 class Test_Page(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.controller = controller
         self.parent = parent
 
         label = ttk.Label(self, text='Classes:')
@@ -20,7 +19,6 @@ class Test_Page(tk.Frame):
         self.classSubject.set('default')
 
         viewLabelFrame = ttk.LabelFrame(self, text='Data View', height=600, width=800)
-
         self.grid_columnconfigure(0, weight=1, uniform='column')
         self.grid_columnconfigure(1, weight=1, uniform='column')
         self.grid_columnconfigure(2, weight=1, uniform='column')

@@ -8,8 +8,9 @@
 # https://github.com/tinfins/CMSC495-Group-3/ #
 ###############################################
 
-from configparser import RawConfigParser
+import configparser
 import os
+import sys
 import logging
 
 
@@ -22,7 +23,7 @@ class Settings:
         :param config_file:String:Name of config file to read/write
         :param section:String:Name of section to be added/modified
         """
-        self.config = RawConfigParser()
+        self.config = configparser.ConfigParser(interpolation=None)
         self.configFile = config_file
         self.config.read(self.configFile)
         self.config_section = section
@@ -65,7 +66,7 @@ class Settings:
         try:
             config_values = dict(self.config.items(self.config_section))
             return config_values
-        except RawConfigParser.NoSectionError as error:
+        except configparser.NoSectionError as error:
             logger.error(error)
             return error
 
