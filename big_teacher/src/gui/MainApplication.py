@@ -2,7 +2,7 @@ import tkinter as tk
 from ttkthemes import ThemedStyle
 import logging
 import logging.config
-import MenuBarGui
+import MenuStatus
 import LoginGui
 import DataView
 
@@ -47,7 +47,7 @@ class MainApplication(tk.Tk):
         frame = self.frames[page_name]
         # Shows menu on all views but the login view
         if page_name != "Login":
-            MenuBarGui.Menu_Bar_Gui(parent=self.container, controller=self)
+            MenuStatus.Menu_Bar_Gui(parent=self.container, controller=self)
         self.title(page_name)
         frame.tkraise()
     

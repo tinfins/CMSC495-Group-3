@@ -24,21 +24,6 @@ class MessageBox(tk.Frame):
     def onInfo(self, message):
         self.mbox.showinfo("Information", message)
 
-    def settingsBox(self):
-        ttk.Label(self, text='Settings', font=(None, 12)).grid(row=0)
-        ttk.Label(self, text='Host:').grid(row=1)
-        ttk.Label(self, text='Port:').grid(row=2)
-        ttk.Label(self, text='DB Name:').grid(row=3)
-
-        hostVar = tk.StringVar()
-        hostEntry = ttk.Entry(self, textvariable=hostVar).grid(row=1, column=1)
-        portVar = tk.StringVar()
-        portEntry = ttk.Entry(self, textvariable=portVar).grid(row=2, column=1)
-        db_nameVar = tk.StringVar()
-        db_nameEntry = ttk.Entry(self, textvariable=db_nameVar).grid(row=3, column=1)
-
-        saveButton = ttk.Button(self, text="Save", command=None, width=10).grid(row=4)
-        cancelButton = ttk.Button(self, text="Cancel", command=None, width=10).grid(row=4, column=1)
 
 def main():
     root = tk.Tk()

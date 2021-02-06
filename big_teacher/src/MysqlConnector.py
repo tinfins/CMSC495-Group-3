@@ -26,6 +26,7 @@ class MysqlConnector:
         '''
         self.config_dict = config_dict
         self.engine = db.create_engine(f"mysql+pymysql://{self.config_dict['username']}:{self.config_dict['password']}@{self.config_dict['host']}:{self.config_dict['port']}/{self.config_dict['db_name']}")
+        self.username = self.config_dict['username']
 
     def login(self):
         '''
@@ -38,7 +39,6 @@ class MysqlConnector:
             logging.info(f"Successful login - {self.config_dict['username']}")
             return True
         except RuntimeError as error:
-            print("Unable to login. Please check your settings and try again...")
             logging.critical(f"FAILED login - {self.config_dict['username']}")
         try:
             self.engine.close()
@@ -51,4 +51,5 @@ class MysqlConnector:
         :return:String
         '''
         self.engine.dispose()
-        return "Successfully logged out..."
+        TODO:
+        return self.config_dict['username']
