@@ -1,12 +1,14 @@
+import logging.config
+import sys
 import tkinter as tk
 from tkinter import ttk
-from ttkthemes import ThemedStyle, ThemedTk
-import logging.config
-from big_teacher.src.gui.MenuStatus import MenuBarGui, StatusBar
-from big_teacher.src.gui.DataView import Test_Page
-from big_teacher.src import Settings
-from big_teacher.src import MysqlConnector
-from big_teacher.src.gui import MessageBox
+from ttkthemes import ThemedTk
+#from MenuStatus import MenuBarGui, StatusBar
+import src.gui.MenuStatus as MenuStatus
+import src.gui.DataView as DataView
+import src.gui.MessageBox as MessageBox
+import src.Settings as Settings
+import src.MysqlConnector as MysqlConnector
 
 
 def main():
@@ -54,7 +56,7 @@ class LoginGui:
         bottom_frame.pack()
 
         # Menu bar instantiate
-        menu_bar = MenuBarGui(menu_frame, self.master)
+        menu_bar = MenuStatus.MenuBarGui(menu_frame, self.master)
 
         # Welcome Label
         info_label = ttk.Label(top_frame, text='Welcome to Big Teacher!', justify='center')
@@ -75,7 +77,7 @@ class LoginGui:
         reset_button = ttk.Button(bottom_frame, text='Reset', command=lambda: self.reset_entries())
 
         # Status Bar instantiate
-        self.status_bar = StatusBar(self.status_frame)
+        self.status_bar = MenuStatus.StatusBar(self.status_frame)
 
         # Pack GUI
         # Menu Bar
@@ -101,15 +103,15 @@ class LoginGui:
         if db_conn.login():
             self.logger.info(f"{config_values['username']} successfully logged in")
             self.status_bar.status_set(f"{config_values['username']} logged in")
-            data_view = Test_Page(self.master_frame, self)
+            data_view = DataView.Test_Page(self.master_frame, self)
             data_view.tkraise()
         else:
             self.logger.warning(f"{config_values['username']} FAILED login attempt")
             MessageBox.MessageBox().onWarn('Invalid Login Credentials')
             self.status_bar.status_set('Invalid Login Credentials')
 
-    def logout(self):
-        TODO:
+    #def logout(self):
+        #TODO:
 
     def reset_entries(self):
         self.username.set('')
@@ -129,7 +131,7 @@ class SettingsGui:
         self.master_frame = ttk.Frame(self.master)
         # Pack master_frame in window
         self.master_frame.pack()
-        menu_frame = ttk.Frame(self.master_frame)
+        #menu_frame = ttk.Frame(self.master_frame)
         top_frame = ttk.Frame(self.master_frame)
         db_type_frame = ttk.Frame(self.master_frame)
         mid_frame = ttk.Frame(self.master_frame)
@@ -139,7 +141,7 @@ class SettingsGui:
         spacer1 = ttk.Frame(self.master_frame, width=75, height=20)
         spacer2 = ttk.Frame(self.master_frame, width=75, height=20)
 
-        menu_frame.pack(side=tk.TOP)
+        #menu_frame.pack(side=tk.TOP)
         self.status_frame.pack(side=tk.BOTTOM, fill=tk.X)
         top_frame.pack(side=tk.TOP)
         db_type_frame.pack(side=tk.TOP)
@@ -149,7 +151,7 @@ class SettingsGui:
         bottom_frame.pack(side=tk.TOP)
 
         # Menu Bar instantiate
-        menu_bar = MenuBarGui(menu_frame, self.master)
+        #menu_bar = MenuBarGui(menu_frame, self.master)
 
         # Welcome Label
         info_label = ttk.Label(top_frame, text='Big Teacher Settings', justify='center')
@@ -182,10 +184,10 @@ class SettingsGui:
         cancel_button = ttk.Button(bottom_frame, text='Cancel', command=lambda: self.close_window())
 
         # Status Bar
-        self.status_bar = StatusBar(self.status_frame)
+        self.status_bar = MenuStatus.StatusBar(self.status_frame)
 
         # Pack Gui
-        menu_bar.pack()
+        #menu_bar.pack()
         # Info label pack in top_frame
         info_label.pack(padx=75, pady=75)
         # Pack layout for db_type_frame
@@ -212,9 +214,9 @@ class SettingsGui:
         try:
             self.load_settings()
         except:
-            self.logger.error('Settings were not loaded')
-            self.status_bar.status_set(f'Error encountered loading settings')
-            pass
+            error = sys.exc_info()[0]
+            self.logger.error(f'Settings were not loaded - {error}')
+            self.status_bar.status_set('Error encountered loading settings')
 
     def load_settings(self):
         settings = Settings.Settings(config_file='config.ini', section='sqldb').db_config_read()
@@ -223,7 +225,7 @@ class SettingsGui:
         self.port.set(settings['port'])
         self.db_name.set(settings['db_name'])
         self.logger.info(f'Settings successfully loaded from config.ini')
-        LoginGui.status_bar.status_set(f'Settings successfully loaded from config.ini')
+        self.status_bar.status_set(f'Settings successfully loaded from config.ini')
 
 
     def save_settings(self):

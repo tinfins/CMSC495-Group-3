@@ -38,12 +38,8 @@ class MysqlConnector:
             self.engine.connect()
             logging.info(f"Successful login - {self.config_dict['username']}")
             return True
-        except RuntimeError as error:
+        except:
             logging.critical(f"FAILED login - {self.config_dict['username']}")
-        try:
-            self.engine.close()
-        except AttributeError as error:
-            logging.error(error)
 
     def logout(self):
         '''
@@ -51,5 +47,5 @@ class MysqlConnector:
         :return:String
         '''
         self.engine.dispose()
-        TODO:
+        #TODO:
         return self.config_dict['username']
