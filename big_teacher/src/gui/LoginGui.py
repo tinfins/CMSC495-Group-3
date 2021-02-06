@@ -59,17 +59,17 @@ class LoginGui:
         menu_bar = MenuStatus.MenuBarGui(menu_frame, self.master)
 
         # Welcome Label
-        info_label = ttk.Label(top_frame, text='Welcome to Big Teacher!', justify='center')
+        info_label = ttk.Label(top_frame, text='Welcome to Big Teacher!', justify='center', font=(None, 25))
 
         # Username label and entry
         username_label = ttk.Label(mid_frame, text='Username')
         self.username = tk.StringVar()
-        username_entry = ttk.Entry(mid_frame, textvariable=self.username)
+        username_entry = ttk.Entry(mid_frame, textvariable=self.username, width=35)
 
         # Password label and entry
         password_label = ttk.Label(mid_frame, text='Password')
         self.password = tk.StringVar()
-        password_entry = ttk.Entry(mid_frame, textvariable=self.password, show='*')
+        password_entry = ttk.Entry(mid_frame, textvariable=self.password, show='*', width=35)
 
         # Login Button
         login_button = ttk.Button(bottom_frame, text='Login', command=lambda: self.login())
@@ -96,19 +96,23 @@ class LoginGui:
         self.status_bar.pack()
 
     def login(self):
-        config_values = Settings.Settings('config.ini', 'sqldb').db_config_read()
-        config_values['username'] = self.username.get()
-        config_values['password'] = self.password.get()
-        db_conn = MysqlConnector.MysqlConnector(config_values)
-        if db_conn.login():
-            self.logger.info(f"{config_values['username']} successfully logged in")
-            self.status_bar.status_set(f"{config_values['username']} logged in")
-            data_view = DataView.Test_Page(self.master_frame, self)
-            data_view.tkraise()
-        else:
-            self.logger.warning(f"{config_values['username']} FAILED login attempt")
-            MessageBox.MessageBox().onWarn('Invalid Login Credentials')
-            self.status_bar.status_set('Invalid Login Credentials')
+        try:
+            config_values = Settings.Settings('config.ini', 'sqldb').db_config_read()
+            config_values['username'] = self.username.get()
+            config_values['password'] = self.password.get()
+            db_conn = MysqlConnector.MysqlConnector(config_values)
+            if db_conn.login():
+                self.logger.info(f"{config_values['username']} successfully logged in")
+                self.status_bar.status_set(f"{config_values['username']} logged in")
+                data_view = DataView.Test_Page(self.master_frame, self)
+                data_view.tkraise()
+            else:
+                self.logger.warning(f"{config_values['username']} FAILED login attempt")
+                MessageBox.MessageBox().onWarn('Invalid Login Credentials')
+                self.status_bar.status_set('Invalid Login Credentials')
+        except:
+            self.status_bar.status_set('Unable to login. Check your configuration settings.')
+            MessageBox.MessageBox().onInfo('Unable to login\nGo to Edit -> Settings and configure your database settings.')
 
     #def logout(self):
         #TODO:
@@ -154,7 +158,7 @@ class SettingsGui:
         #menu_bar = MenuBarGui(menu_frame, self.master)
 
         # Welcome Label
-        info_label = ttk.Label(top_frame, text='Big Teacher Settings', justify='center')
+        info_label = ttk.Label(top_frame, text='Big Teacher Settings', justify='center', font=(None, 25))
 
         # Radio Button Group for database types
         self.db_type = tk.StringVar(db_type_frame, 'mysql')
@@ -166,17 +170,17 @@ class SettingsGui:
         # Host label and entry
         host_label = ttk.Label(mid_frame, text='Host:')
         self.host = tk.StringVar()
-        host_entry = ttk.Entry(mid_frame, textvariable=self.host)
+        host_entry = ttk.Entry(mid_frame, textvariable=self.host, width=35)
 
         # Port label and entry
         port_label = ttk.Label(mid_frame, text='Port')
         self.port = tk.StringVar()
-        port_entry = ttk.Entry(mid_frame, textvariable=self.port)
+        port_entry = ttk.Entry(mid_frame, textvariable=self.port, width=35)
 
         # Database name label and entry
         db_name_label = ttk.Label(mid_frame, text='DB Name')
         self.db_name = tk.StringVar()
-        db_name_entry = ttk.Entry(mid_frame, textvariable=self.db_name)
+        db_name_entry = ttk.Entry(mid_frame, textvariable=self.db_name, width=35)
 
         # Save Button
         save_button = ttk.Button(bottom_frame, text='Save', command=lambda: self.save_settings())

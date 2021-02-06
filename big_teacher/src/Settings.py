@@ -68,7 +68,6 @@ class Settings:
             return config_values
         except configparser.NoSectionError as error:
             logger.error(error)
-            return error
 
 
 class NoSettings:

@@ -1,6 +1,3 @@
-#from big_teacher.src.gui import LoginGui
-import tkinter as tk
-from tkinter import ttk
 from ttkthemes import ThemedTk
 import src.gui.LoginGui as LoginGui
 from src.Settings import NoSettings
