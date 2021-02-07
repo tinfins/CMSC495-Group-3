@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-import src.gui.LoginGui as LoginGui
+import big_teacher.src.gui.LoginGui as LoginGui
 
 
 class MenuBarGui(tk.Frame):

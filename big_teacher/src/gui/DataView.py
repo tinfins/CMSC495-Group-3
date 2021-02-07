@@ -7,9 +7,9 @@ class Test_Page(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.parent = parent
 
-        label = ttk.Label(self, text='Classes:')
+        label = ttk.Label(self.parent, text='Classes:')
         classValue = tk.StringVar()
-        self.classSubject = ttk.Combobox(self, textvariable=classValue, state='readonly')
+        self.classSubject = ttk.Combobox(self.parent, textvariable=classValue, state='readonly')
 
         self.classSubject['values'] = ('CMSC 495-6380',
                                   'SDEV 300-1234',
@@ -18,7 +18,7 @@ class Test_Page(tk.Frame):
 
         self.classSubject.set('default')
 
-        viewLabelFrame = ttk.LabelFrame(self, text='Data View', height=600, width=800)
+        viewLabelFrame = ttk.LabelFrame(self.parent, text='Data View', height=600, width=800)
         self.grid_columnconfigure(0, weight=1, uniform='column')
         self.grid_columnconfigure(1, weight=1, uniform='column')
         self.grid_columnconfigure(2, weight=1, uniform='column')

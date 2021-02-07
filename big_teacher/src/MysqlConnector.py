@@ -26,7 +26,6 @@ class MysqlConnector:
         '''
         self.config_dict = config_dict
         self.engine = db.create_engine(f"mysql+pymysql://{self.config_dict['username']}:{self.config_dict['password']}@{self.config_dict['host']}:{self.config_dict['port']}/{self.config_dict['db_name']}")
-        self.username = self.config_dict['username']
 
     def login(self):
         '''
