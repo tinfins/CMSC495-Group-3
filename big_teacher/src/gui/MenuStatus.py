@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-import src.gui.LoginGui as LoginGui
+import big_teacher.src.gui.SettingsGui as SettingsGui
+import big_teacher.MainApplication as MainApplication
 
 
 class MenuBarGui(tk.Frame):
@@ -15,22 +16,22 @@ class MenuBarGui(tk.Frame):
         menubar = tk.Menu(self.parent)
         file_menu = tk.Menu(menubar, tearoff=0)
         edit_menu = tk.Menu(menubar, tearoff=0)
-        controller.config(menu = menubar)
-        self.grid(row=0,column=0)
+        controller.config(menu=menubar)
+        self.grid(row=0, column=0)
 
         # Filemenu entries
-        file_menu.add_command(label = "Log Out", command = lambda: None)
-        file_menu.add_command(label = "", command = None)
-        file_menu.add_command(label = "Close", command = lambda: controller.destroy())
+        file_menu.add_command(label="Log Out", command=lambda: None)
+        file_menu.add_command(label="", command=None)
+        file_menu.add_command(label="Close", command=lambda: controller.destroy())
 
         file_menu.add_separator()
 
-        file_menu.add_command(label = "Exit", command = lambda: controller.destroy())
-        menubar.add_cascade(label = 'File', menu = file_menu)
+        file_menu.add_command(label="Exit", command=lambda: controller.destroy())
+        menubar.add_cascade(label='File', menu=file_menu)
 
         # Edit_menu entries
-        edit_menu.add_command(label = "Settings", command = lambda: LoginGui.SwitchWindow(master=controller).new_window(LoginGui.SettingsGui, controller))
-        menubar.add_cascade(label = 'Edit', menu = edit_menu)
+        edit_menu.add_command(label="Settings", command=lambda: MainApplication.SwitchWindow(master=controller).new_window(SettingsGui.SettingsGui, controller))
+        menubar.add_cascade(label='Edit', menu=edit_menu)
 
 
 class StatusBar(tk.Frame):

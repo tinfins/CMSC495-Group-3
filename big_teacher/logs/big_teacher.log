@@ -1,0 +1,16 @@
+2021-02-06 23:48:33,654 - root - INFO - MysqlConnector : 38 - Successful login - jwhite
+2021-02-06 23:48:33,656 - src.gui.LoginGui - INFO - LoginGui : 105 - jwhite successfully logged in
+2021-02-06 23:49:04,137 - root - INFO - MysqlConnector : 38 - Successful login - jwhite
+2021-02-06 23:49:04,138 - src.gui.LoginGui - INFO - LoginGui : 105 - jwhite successfully logged in
+2021-02-06 23:50:25,256 - root - CRITICAL - MysqlConnector : 41 - FAILED login - awenger
+2021-02-06 23:50:25,257 - src.gui.LoginGui - WARNING - LoginGui : 111 - awenger FAILED login attempt
+2021-02-06 23:50:36,076 - root - INFO - MysqlConnector : 38 - Successful login - awenger
+2021-02-06 23:50:36,077 - src.gui.LoginGui - INFO - LoginGui : 105 - awenger successfully logged in
+2021-02-06 23:53:17,079 - root - INFO - MysqlConnector : 38 - Successful login - jwhite
+2021-02-06 23:53:17,081 - src.gui.LoginGui - INFO - LoginGui : 105 - jwhite successfully logged in
+2021-02-07 01:10:25,817 - big_teacher.src.gui.SettingsGui - INFO - SettingsGui : 111 - Settings successfully loaded from config.ini
+2021-02-07 01:10:31,979 - big_teacher.src.gui.SettingsGui - INFO - SettingsGui : 111 - Settings successfully loaded from config.ini
+2021-02-07 01:25:48,867 - root - INFO - MysqlConnector : 38 - Successful login - jwhite
+2021-02-07 01:25:48,868 - big_teacher.src.gui.LoginGui - INFO - LoginGui : 85 - jwhite successfully logged in
+2021-02-07 01:26:46,541 - root - INFO - MysqlConnector : 38 - Successful login - jwhite
+2021-02-07 01:26:46,543 - big_teacher.src.gui.LoginGui - INFO - LoginGui : 85 - jwhite successfully logged in
