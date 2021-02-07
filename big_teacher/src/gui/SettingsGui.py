@@ -1,3 +1,11 @@
+import logging.config
+import tkinter as tk
+from tkinter import ttk
+import sys
+import big_teacher.src.gui.MenuStatus as MenuStatus
+import big_teacher.src.Settings as Settings
+
+
 class SettingsGui:
     def __init__(self, master):
         self.master = master
@@ -8,7 +16,6 @@ class SettingsGui:
         self.master_frame = ttk.Frame(self.master)
         # Pack master_frame in window
         self.master_frame.pack()
-        #menu_frame = ttk.Frame(self.master_frame)
         top_frame = ttk.Frame(self.master_frame)
         db_type_frame = ttk.Frame(self.master_frame)
         mid_frame = ttk.Frame(self.master_frame)
@@ -18,7 +25,6 @@ class SettingsGui:
         spacer1 = ttk.Frame(self.master_frame, width=75, height=20)
         spacer2 = ttk.Frame(self.master_frame, width=75, height=20)
 
-        #menu_frame.pack(side=tk.TOP)
         self.status_frame.pack(side=tk.BOTTOM, fill=tk.X)
         top_frame.pack(side=tk.TOP)
         db_type_frame.pack(side=tk.TOP)
@@ -27,18 +33,15 @@ class SettingsGui:
         mid_frame.pack(side=tk.TOP)
         bottom_frame.pack(side=tk.TOP)
 
-        # Menu Bar instantiate
-        #menu_bar = MenuBarGui(menu_frame, self.master)
-
         # Welcome Label
         info_label = ttk.Label(top_frame, text='Big Teacher Settings', justify='center', font=(None, 25))
 
         # Radio Button Group for database types
         self.db_type = tk.StringVar(db_type_frame, 'mysql')
-        mysqlR = ttk.Radiobutton(db_type_frame, text='MySQL', variable=self.db_type, value='mysql')
-        pgsqlR = ttk.Radiobutton(db_type_frame, text='PostgreSQL', variable=self.db_type, value='postgresql')
-        oracleR = ttk.Radiobutton(db_type_frame, text='Oracle', variable=self.db_type, value='oracle')
-        mssqlR = ttk.Radiobutton(db_type_frame, text='MsSQL', variable=self.db_type, value='mssql')
+        mysql_rb = ttk.Radiobutton(db_type_frame, text='MySQL', variable=self.db_type, value='mysql')
+        pgsql_rb = ttk.Radiobutton(db_type_frame, text='PostgreSQL', variable=self.db_type, value='postgresql')
+        oracle_rb = ttk.Radiobutton(db_type_frame, text='Oracle', variable=self.db_type, value='oracle')
+        mssql_rb = ttk.Radiobutton(db_type_frame, text='MsSQL', variable=self.db_type, value='mssql')
 
         # Host label and entry
         host_label = ttk.Label(mid_frame, text='Host:')
@@ -64,14 +67,13 @@ class SettingsGui:
         self.status_bar = MenuStatus.StatusBar(self.status_frame)
 
         # Pack Gui
-        #menu_bar.pack()
         # Info label pack in top_frame
         info_label.pack(padx=75, pady=75)
         # Pack layout for db_type_frame
-        mysqlR.pack(side=tk.LEFT, padx=15, pady=15)
-        pgsqlR.pack(side=tk.LEFT, padx=15, pady=15)
-        oracleR.pack(side=tk.LEFT, padx=15, pady=15)
-        mssqlR.pack(side=tk.LEFT, padx=15, pady=15)
+        mysql_rb.pack(side=tk.LEFT, padx=15, pady=15)
+        pgsql_rb.pack(side=tk.LEFT, padx=15, pady=15)
+        oracle_rb.pack(side=tk.LEFT, padx=15, pady=15)
+        mssql_rb.pack(side=tk.LEFT, padx=15, pady=15)
 
         # Grid layout for mid_frame
         host_label.grid(row=0, column=0, sticky='e', padx=25, pady=5)
@@ -103,7 +105,6 @@ class SettingsGui:
         self.db_name.set(settings['db_name'])
         self.logger.info(f'Settings successfully loaded from config.ini')
         self.status_bar.status_set(f'Settings successfully loaded from config.ini')
-
 
     def save_settings(self):
         db_type = self.db_type.get()

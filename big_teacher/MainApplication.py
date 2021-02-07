@@ -1,58 +1,58 @@
 import tkinter as tk
 from tkinter import ttk
-from ttkthemes import ThemedStyle
-import os
+from ttkthemes import ThemedTk
 import logging.config
-import big_teacher.src.gui.MenuStatus as MenuStatus
 import big_teacher.src.gui.LoginGui as LoginGui
-import big_teacher.src.gui.DataView as DataView
+import big_teacher.src.gui.StudentView as StudentView
 
 logging.config.fileConfig(fname='config.ini', disable_existing_loggers=False)
 
 
-class MainApplication(tk.Tk):
+class MainApplication:
     """
     Main entry point for GUI portion of application
     """
-    def __init__(self, *args, **kwargs):
-        tk.Tk.__init__(self, *args, **kwargs)
+    def __init__(self, master):
+        self.master = master
         
         # Container to stack frames
-        self.container = ttk.Frame(self)
+        self.container = ttk.Frame(self.master)
         self.container.pack(side="top", fill="both", expand=True)
-        self.container.grid_rowconfigure(0, weight=1)
-        self.container.grid_columnconfigure(0, weight=1)
-
-        print(os.getcwd())
-        
-        # Style application theme
-        # Install ttkthemes (pip install ttkthemes)
-        style = ThemedStyle(self)
-        style.set_theme("breeze")
 
         # Create frames
         self.frames = {}
         # Each view/page should be added as a frame in the style shown below
-        self.frames["Data View"] = DataView.Test_Page(parent=self.container, controller=self)
-        
+        self.frames["Student View"] = StudentView.StudentView(parent=self.container, controller=self.master)
+
         # Set frames in container
         # Each frame must have a layout in the style below
-        self.frames["Data View"].grid(row=1, column=0, sticky="nsew")
-        
-        self.show_frame("Data View")
-        login_gui = LoginGui.SwitchWindow(master=self)
-        login_gui.new_window(LoginGui.LoginGui, master=self)
+        self.frames["Student View"].pack()
 
-        
+        login_gui = SwitchWindow(master=self.master)
+        login_gui.new_window(LoginGui.LoginGui, master=self.master)
+        self.show_frame("Student View")
+
+
     def show_frame(self, page_name):
-        '''Show a frame for the given page name'''
+        '''
+        Show a frame for the given page name
+        '''
         frame = self.frames[page_name]
         # Shows menu on all views but the login view
-        self.title(page_name)
+        self.master.title(page_name)
         frame.tkraise()
+
+
+class SwitchWindow:
+    def __init__(self, master):
+        self.master = master
+
+    def new_window(self, _class, master):
+        self.newWindow = tk.Toplevel(master)
+        _class(self.newWindow)
     
 
 if __name__ == "__main__":
-    app = MainApplication()
-    app.mainloop()
-    
+    root = ThemedTk(theme='arc', background=True)
+    app = MainApplication(root)
+    root.mainloop()

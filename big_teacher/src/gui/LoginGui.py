@@ -1,31 +1,11 @@
 import logging.config
-import sys
 import tkinter as tk
 from tkinter import ttk
-from ttkthemes import ThemedTk
-
 import big_teacher.src.gui.MenuStatus as MenuStatus
-import big_teacher.src.gui.DataView as DataView
+import big_teacher.src.gui.StudentView as DataView
 import big_teacher.src.gui.MessageBox as MessageBox
 import big_teacher.src.Settings as Settings
 import big_teacher.src.MysqlConnector as MysqlConnector
-
-
-def main():
-    logging.config.fileConfig(fname='config.ini', disable_existing_loggers=False)
-    root = ThemedTk(theme='arc', background=True)
-    app = LoginGui(root)
-    #app.new_window(LoginGui, root)
-    root.mainloop()
-
-
-class SwitchWindow:
-    def __init__(self, master):
-        self.master = master
-
-    def new_window(self, _class, master):
-        self.newWindow = tk.Toplevel(master)
-        _class(self.newWindow)
 
 
 class LoginGui:
@@ -104,9 +84,7 @@ class LoginGui:
             if db_conn.login():
                 self.logger.info(f"{config_values['username']} successfully logged in")
                 self.status_bar.status_set(f"{config_values['username']} logged in")
-                self.master_frame.destroy()
-                data_view = DataView.Test_Page(self.master_frame, self)
-                data_view.tkraise()
+                self.master.destroy()
             else:
                 self.logger.warning(f"{config_values['username']} FAILED login attempt")
                 MessageBox.MessageBox().onWarn('Invalid Login Credentials')
@@ -124,7 +102,3 @@ class LoginGui:
 
     def close_window(self):
         self.master.destroy()
-
-
-if __name__ == '__main__':
-    main()
