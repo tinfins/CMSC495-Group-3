@@ -102,7 +102,7 @@ class SettingsGui:
             self.status_bar.status_set('Error encountered loading settings')
 
     def load_settings(self):
-        settings = Settings.Settings(config_file='config.ini', section='sqldb').db_config_read()
+        settings = Settings.Settings(config_file='config.ini').db_config_read(section='sqldb')
         self.db_type.set(settings['db_type'])
         self.host.set(settings['host'])
         self.port.set(settings['port'])
@@ -115,8 +115,8 @@ class SettingsGui:
         host = self.host.get()
         port = self.port.get()
         db_name = self.db_name.get()
-        settings = Settings.Settings(config_file='config.ini', section='sqldb')
-        settings.db_config_write(db_type=db_type, host=host, port=port, db_name=db_name)
+        settings = Settings.Settings(config_file='config.ini')
+        settings.db_config_write(section='sqldb', db_type=db_type, host=host, port=port, db_name=db_name)
         self.logger.info(f'config.ini {db_type} section updated')
         self.status_bar.status_set(f'config.ini {db_type} section updated')
         self.close_window()

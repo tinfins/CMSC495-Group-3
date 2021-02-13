@@ -11,10 +11,9 @@ class LoginGui:
     '''
     Class displays Login window. Should only be opened as a TopLevel window
     '''
-    def __init__(self, master, status_bar):
+    def __init__(self, master):
         self.master = master
         self.master.title("Big Teacher Login")
-        self.status_bar = status_bar
         self.logger = logging.getLogger(__name__)
 
         # Master frame for all widgets
@@ -49,9 +48,9 @@ class LoginGui:
         password_entry = ttk.Entry(mid_frame, textvariable=self.password, show='*', width=35)
 
         # Login Button
-        login_button = ttk.Button(bottom_frame, text='Login', command=lambda: self.login())
+        self.login_button = ttk.Button(bottom_frame, text='Login')
         # Reset Button
-        reset_button = ttk.Button(bottom_frame, text='Reset', command=lambda: self.reset_entries())
+        self.reset_button = ttk.Button(bottom_frame, text='Reset')
 
         # Pack GUI
         # Info Label packed in top_frame
@@ -62,9 +61,9 @@ class LoginGui:
         password_label.grid(row=1, column=0, sticky='e', padx=10, pady=5)
         password_entry.grid(row=1, column=1, sticky='w', padx=10, pady=5)
         # Grid layout for bottom_frame
-        login_button.grid(row=0, column=0, sticky='e', padx=5, pady=25)
-        reset_button.grid(row=0, column=2, columnspan=2, sticky='w', padx=5, pady=25)
-
+        self.login_button.grid(row=0, column=0, sticky='e', padx=5, pady=25)
+        self.reset_button.grid(row=0, column=2, columnspan=2, sticky='w', padx=5, pady=25)
+    '''
     def login(self):
         # TODO: Refactor for modularity
         try:
@@ -85,14 +84,10 @@ class LoginGui:
         except:
             # Executes if there are no values to pass or sqldb section is missing from conifg.ini
             self.status_bar.status_set('Unable to login. Check your configuration settings.')
-            MessageBox.MessageBox().onInfo('Unable to login\nGo to Edit -> Settings and configure your database settings.')
+            MessageBox.MessageBox().onInfo('Unable to login\nGo to Edit -> Settings and configure your database settings.')'''
 
     #def logout(self):
         #TODO:
-
-    def reset_entries(self):
-        self.username.set('')
-        self.password.set('')
 
     def close_window(self):
         self.master.destroy()
