@@ -84,9 +84,9 @@ class NoSettings:
         Settings('config.ini', 'loggers').db_config_write(keys='root')
         Settings('config.ini', 'handlers').db_config_write(keys='stream_handler,file_handler')
         Settings('config.ini', 'formatters').db_config_write(keys='simple,complex')
-        Settings('config.ini', 'logger_root').db_config_write(level='NOTSET', handlers='stream_handler,file_handler')
+        Settings('config.ini', 'logger_root').db_config_write(level='INFO', handlers='stream_handler,file_handler')
         Settings('config.ini', 'handler_file_handler').db_config_write(class_='FileHandler', formatter='complex',
-                                                                       level='NOTSET', args="('big_teacher/logs/big_teacher.log',)")
+                                                                       level='INFO', args="('big_teacher/logs/big_teacher.log',)")
         Settings('config.ini', 'handler_stream_handler').db_config_write(class_='StreamHandler', level='NOTSET',
                                                                          formatter='simple', args="(sys.stderr,)")
         Settings('config.ini', 'formatter_simple').db_config_write(
