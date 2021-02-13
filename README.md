@@ -16,6 +16,7 @@ Python 3.7
 - ttkthemes~=3.2.0
 - SQLAlchemy~=1.3.22
 - PyMySQL~=1.0.2
+- Pillow~=8.1.0
   
 (See requirements.txt file for most up to date dependencies)
 
