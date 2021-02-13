@@ -87,6 +87,6 @@ class NoSettings:
         settings.db_config_write(section='formatters', keys='simple,complex')
         settings.db_config_write(section='logger_root', level='INFO', handlers='stream_handler,file_handler')
         settings.db_config_write(section='handler_file_handler', class_='FileHandler', formatter='complex', level='INFO', args="('big_teacher/logs/big_teacher.log',)")
-        settings.db_config_write(section='handler_stream_hanfler', class_='StreamHandler', level='INFO', formatter='simple', args="(sys.stderr,)")
+        settings.db_config_write(section='handler_stream_handler', class_='StreamHandler', level='INFO', formatter='simple', args="(sys.stderr,)")
         settings.db_config_write(section='formatter_simple', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         settings.db_config_write(section='formatter_complex', format='%(asctime)s - %(name)s - %(levelname)s - %(module)s : %(lineno)d - %(message)s')
