@@ -36,6 +36,7 @@ Python 3.7
   - OSX/Linux: source venv/bin/activate
 - Install required dependencies
   - All Platforms: pip3 install -r requirements.txt
+  - If updating: pip install -r requirements.txt --upgrade
 
 ## Running tests
 TODO:
