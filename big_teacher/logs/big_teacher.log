@@ -693,3 +693,5 @@
 2021-02-13 01:00:02,055 - big_teacher.src.gui.LoginGui - INFO - LoginGui : 76 - jwhite successfully logged in
 2021-02-13 01:01:16,017 - root - INFO - MysqlConnector : 38 - Successful login - jwhite
 2021-02-13 01:01:16,017 - big_teacher.src.gui.LoginGui - INFO - LoginGui : 76 - jwhite successfully logged in
+2021-02-13 01:24:58,312 - root - INFO - MysqlConnector : 50 - Successful login - jwhite
+2021-02-13 01:24:58,313 - big_teacher.src.gui.LoginGui - INFO - LoginGui : 76 - jwhite successfully logged in

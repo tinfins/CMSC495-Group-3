@@ -17,6 +17,8 @@ Python 3.7
 - SQLAlchemy~=1.3.22
 - PyMySQL~=1.0.2
 - Pillow~=8.1.0
+- psycopg2~=2.8.6
+- pyodbc~=4.0.30
   
 (See requirements.txt file for most up to date dependencies)
 
