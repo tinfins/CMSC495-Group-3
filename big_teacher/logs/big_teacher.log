@@ -1,0 +1,5 @@
+2021-02-13 14:41:15,096 - root - INFO - MysqlConnector : 51 - Successful login - jwhite
+2021-02-13 14:41:15,097 - __main__ - INFO - MainApplication : 71 - jwhite successfully logged in
+2021-02-13 14:44:30,930 - root - INFO - MysqlConnector : 51 - Successful login - jwhite
+2021-02-13 14:44:30,930 - __main__ - INFO - MainApplication : 71 - jwhite successfully logged in
+2021-02-13 14:44:40,942 - big_teacher.src.gui.SettingsGui - INFO - SettingsGui : 110 - Settings successfully loaded from config.ini

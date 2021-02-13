@@ -80,29 +80,7 @@ class MainApplication:
             # Executes if there are no values to pass or sqldb section is missing from conifg.ini
             self.status_bar.status_set('Unable to login. Check your configuration settings.')
             MessageBox.MessageBox().onInfo('Unable to login\nGo to Edit -> Settings and configure your database settings.')
-        
-        '''
-        # TODO: Refactor for modularity
-        try:
-            config_values = Settings.Settings('config.ini', 'sqldb').db_config_read()
-            config_values['username'] = self.username.get()
-            config_values['password'] = self.password.get()
-            db_conn = MysqlConnector.MysqlConnector(config_values)
-            if db_conn.login():
-                self.logger.info(f"{config_values['username']} successfully logged in")
-                self.status_bar.status_set(f"{config_values['username']} logged in")
-                self.master_frame.destroy()
-                HomePage.HomePage(self.master, self.status_bar)
-            else:
-                # Executes on failed login
-                self.logger.warning(f"{config_values['username']} FAILED login attempt")
-                MessageBox.MessageBox().onWarn('Invalid Login Credentials')
-                self.status_bar.status_set('Invalid Login Credentials')
-        except:
-            # Executes if there are no values to pass or sqldb section is missing from conifg.ini
-            self.status_bar.status_set('Unable to login. Check your configuration settings.')
-            MessageBox.MessageBox().onInfo('Unable to login\nGo to Edit -> Settings and configure your database settings.')
-            '''
+
 
 def main():
     logging.config.fileConfig(fname='config.ini', disable_existing_loggers=False)
