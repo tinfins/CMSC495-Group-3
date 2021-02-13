@@ -2,22 +2,23 @@ import logging.config
 import tkinter as tk
 from tkinter import ttk
 import big_teacher.src.gui.MenuStatus as MenuStatus
-import big_teacher.src.gui.StudentView as DataView
+import big_teacher.src.gui.MainView as MainView
 import big_teacher.src.gui.MessageBox as MessageBox
 import big_teacher.src.Settings as Settings
 import big_teacher.src.MysqlConnector as MysqlConnector
 
 
 class LoginGui:
+    '''
+    Class displays Login window. Should only be opened as a TopLevel window
+    '''
     def __init__(self, master):
         self.master = master
         self.master.title("Big Teacher Login")
         self.logger = logging.getLogger(__name__)
 
-        # Main frame for LoginGui window
+        # Create frames for widget separation
         self.master_frame = ttk.Frame(self.master)
-        # Pack master_frame in window
-        self.master_frame.pack()
         menu_frame = ttk.Frame(self.master_frame)
         top_frame = ttk.Frame(self.master_frame)
         mid_frame = ttk.Frame(self.master_frame)
@@ -27,6 +28,8 @@ class LoginGui:
         spacer1 = ttk.Frame(self.master_frame, width=75, height=20)
         spacer2 = ttk.Frame(self.master_frame, width=75, height=20)
 
+        # Pack master_frame with rest of frames
+        self.master_frame.pack()
         menu_frame.pack(side=tk.TOP, fill=tk.X)
         self.status_frame.pack(side=tk.BOTTOM, fill=tk.X)
         top_frame.pack()
@@ -76,6 +79,7 @@ class LoginGui:
         self.status_bar.pack()
 
     def login(self):
+        # TODO: Refactor for modularity
         try:
             config_values = Settings.Settings('config.ini', 'sqldb').db_config_read()
             config_values['username'] = self.username.get()
@@ -84,6 +88,7 @@ class LoginGui:
             if db_conn.login():
                 self.logger.info(f"{config_values['username']} successfully logged in")
                 self.status_bar.status_set(f"{config_values['username']} logged in")
+                MainView.MainView.show_frame('Home')
                 self.master.destroy()
             else:
                 self.logger.warning(f"{config_values['username']} FAILED login attempt")

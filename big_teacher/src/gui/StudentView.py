@@ -4,17 +4,17 @@ import big_teacher.src.gui.MenuStatus as MenuStatus
 
 
 class StudentView(tk.Frame):
-    def __init__(self, parent, controller):
-        ttk.Frame.__init__(self, parent)
-        self.parent = parent
+    def __init__(self, master, controller):
+        ttk.Frame.__init__(self, master)
+        self.master = master
 
         # Frame for menu bar
-        menu_frame = ttk.Frame(self.parent)
+        menu_frame = ttk.Frame(self.master)
         # Frame for top window elements
-        self.top_frame = ttk.Frame(self.parent)
-        self.mid_frame = ttk.Frame(self.parent)
-        spacer1 = ttk.Frame(self.parent, width=75, height=55)
-        self.status_frame = ttk.Frame(self.parent)
+        self.top_frame = ttk.Frame(self.master)
+        self.mid_frame = ttk.Frame(self.master)
+        spacer1 = ttk.Frame(self.master, width=75, height=55)
+        self.status_frame = ttk.Frame(self.master)
 
         menu_frame.pack(side=tk.TOP, fill=tk.X)
         self.status_frame.pack(side=tk.BOTTOM, fill=tk.X)
@@ -27,6 +27,7 @@ class StudentView(tk.Frame):
         class_value = tk.StringVar(self.top_frame, 'CMSC 495-6380')
         self.classSubject = ttk.Combobox(self.top_frame, textvariable=class_value, state='readonly')
 
+        # TODO: Populate this list dynamically from model
         self.classSubject['values'] = ('CMSC 495-6380',
                                   'SDEV 300-1234',
                                   'SDEV 460-5678'

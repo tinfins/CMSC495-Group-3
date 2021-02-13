@@ -1,19 +1,19 @@
 import tkinter as tk
 from tkinter import ttk
 import big_teacher.src.gui.SettingsGui as SettingsGui
-import big_teacher.MainApplication as MainApplication
+import big_teacher.src.gui.MainView as MainView
 
 
 class MenuBarGui(tk.Frame):
     '''
     Creates application menus
     '''
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.parent = parent
+    def __init__(self, master, controller):
+        tk.Frame.__init__(self, master)
+        self.master = master
 
         # Menubar setup
-        menubar = tk.Menu(self.parent)
+        menubar = tk.Menu(self.master)
         file_menu = tk.Menu(menubar, tearoff=0)
         edit_menu = tk.Menu(menubar, tearoff=0)
         controller.config(menu=menubar)
@@ -30,7 +30,7 @@ class MenuBarGui(tk.Frame):
         menubar.add_cascade(label='File', menu=file_menu)
 
         # Edit_menu entries
-        edit_menu.add_command(label="Settings", command=lambda: MainApplication.SwitchWindow(master=controller).new_window(SettingsGui.SettingsGui, controller))
+        edit_menu.add_command(label="Settings", command=lambda: MainView.SwitchWindow(master=self.master).new_window(SettingsGui.SettingsGui))
         menubar.add_cascade(label='Edit', menu=edit_menu)
 
 
@@ -38,14 +38,14 @@ class StatusBar(tk.Frame):
     '''
     Creates application status bar
     '''
-    def __init__(self, parent):
-        tk.Frame.__init__(self, parent)
-        self.parent = parent
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        self.master = master
 
         self.status_var = tk.StringVar()
-        self.label = ttk.Label(self.parent, relief=tk.SUNKEN, anchor=tk.W, textvariable=self.status_var)
-        self.status_var.set(" Status Bar")
-        self.parent.grid_columnconfigure(0, weight=1)
+        self.label = ttk.Label(self.master, relief=tk.SUNKEN, anchor=tk.W, textvariable=self.status_var)
+        self.status_var.set('')
+        self.master.grid_columnconfigure(0, weight=1)
         self.label.pack(fill=tk.X)
         self.pack(side=tk.BOTTOM, fill=tk.X)
 

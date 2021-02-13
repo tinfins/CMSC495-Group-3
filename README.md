@@ -11,7 +11,7 @@ For Developers interested in using our application as a base to building their o
 
 ## Development Environment Setup
 ### Pre-requisites
-Python 3.8
+Python 3.7
 ### Required dependencies
 - ttkthemes~=3.2.0
 - SQLAlchemy~=1.3.22
@@ -20,10 +20,19 @@ Python 3.8
 (See requirements.txt file for most up to date dependencies)
 
 ### Development Setup
+- Install Python 3.7 or higher
 - Clone github repository
+  - All Platforms: git clone https://github.com/tinfins/CMSC495-Group-3
+- Install virtualenv
+  - All platforms: pip install virtualenv
 - Create a Python virtual environment
+  - Windows: virtualenv --python C:\Path\To\Python\python.exe venv
+  - OSX/Linux: virtualenv venv
 - Activate your virtual environment
-- Install required dependencies (Run 'pip3 install -r requirements.txt')
+  - Windows: .\venv\Scripts\activate
+  - OSX/Linux: source venv/bin/activate
+- Install required dependencies
+  - All Platforms: pip3 install -r requirements.txt
 
 ## Running tests
 TODO:

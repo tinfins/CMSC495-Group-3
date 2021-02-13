@@ -18,6 +18,7 @@ class Settings:
     """
     Settings class to read and write application config to file
     """
+
     def __init__(self, config_file, section):
         """
         :param config_file:String:Name of config file to read/write
@@ -27,13 +28,13 @@ class Settings:
         self.configFile = config_file
         self.config.read(self.configFile)
         self.config_section = section
-    
+
     def db_config_write(self, **settings):
-        """
+        '''
         Writes config to file
         :param:String:Database endpoint conn
         :return:String:host, username, password, db
-        """
+        '''
         logger = logging.getLogger(__name__)
         # Try-except for duplicate section error, allowing field overwrites
         try:
@@ -48,11 +49,11 @@ class Settings:
                 self.config.set(self.config_section, field[:-1], value.format())
             else:
                 self.config.set(self.config_section, field, value.format())
-        
+
         # Writes config to file
         with open(self.configFile, "w") as file:
             self.config.write(file)
-        
+
         config_values = self.db_config_read()
         logger.info(f'config.ini {self.config_section} updated')
         return config_values
@@ -71,18 +72,24 @@ class Settings:
 
 
 class NoSettings:
+    # Refactor for modularity
     @classmethod
     def check_settings(cls):
         if os.path.exists('config.ini'):
             return True
 
+    # Needs refactored for modularity?
     @classmethod
     def create_logging_settings(cls):
         Settings('config.ini', 'loggers').db_config_write(keys='root')
         Settings('config.ini', 'handlers').db_config_write(keys='stream_handler,file_handler')
         Settings('config.ini', 'formatters').db_config_write(keys='simple,complex')
         Settings('config.ini', 'logger_root').db_config_write(level='NOTSET', handlers='stream_handler,file_handler')
-        Settings('config.ini', 'handler_file_handler').db_config_write(class_='FileHandler', formatter='complex', level='NOTSET', args="('logs/big_teacher.log',)")
-        Settings('config.ini', 'handler_stream_handler').db_config_write(class_='StreamHandler', level='NOTSET', formatter='simple', args="(sys.stderr,)")
-        Settings('config.ini', 'formatter_simple').db_config_write(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        Settings('config.ini', 'formatter_complex').db_config_write(format='%(asctime)s - %(name)s - %(levelname)s - %(module)s : %(lineno)d - %(message)s')
+        Settings('config.ini', 'handler_file_handler').db_config_write(class_='FileHandler', formatter='complex',
+                                                                       level='NOTSET', args="('logs/big_teacher.log',)")
+        Settings('config.ini', 'handler_stream_handler').db_config_write(class_='StreamHandler', level='NOTSET',
+                                                                         formatter='simple', args="(sys.stderr,)")
+        Settings('config.ini', 'formatter_simple').db_config_write(
+            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        Settings('config.ini', 'formatter_complex').db_config_write(
+            format='%(asctime)s - %(name)s - %(levelname)s - %(module)s : %(lineno)d - %(message)s')

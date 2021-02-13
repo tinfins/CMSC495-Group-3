@@ -10,6 +10,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 
+
 class MessageBox(tk.Frame):
     def __init__(self):
         super().__init__()

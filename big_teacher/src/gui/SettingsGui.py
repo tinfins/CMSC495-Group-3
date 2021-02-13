@@ -7,6 +7,9 @@ import big_teacher.src.Settings as Settings
 
 
 class SettingsGui:
+    '''
+    Settings window should be opened as a TopLevel window, not in root window
+    '''
     def __init__(self, master):
         self.master = master
         self.master.title('Big Teacher Settings')
@@ -25,6 +28,7 @@ class SettingsGui:
         spacer1 = ttk.Frame(self.master_frame, width=75, height=20)
         spacer2 = ttk.Frame(self.master_frame, width=75, height=20)
 
+        # Pack frames in master frame
         self.status_frame.pack(side=tk.BOTTOM, fill=tk.X)
         top_frame.pack(side=tk.TOP)
         db_type_frame.pack(side=tk.TOP)

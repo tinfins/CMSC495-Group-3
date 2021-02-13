@@ -14,3 +14,9 @@
 2021-02-07 01:25:48,868 - big_teacher.src.gui.LoginGui - INFO - LoginGui : 85 - jwhite successfully logged in
 2021-02-07 01:26:46,541 - root - INFO - MysqlConnector : 38 - Successful login - jwhite
 2021-02-07 01:26:46,543 - big_teacher.src.gui.LoginGui - INFO - LoginGui : 85 - jwhite successfully logged in
+2021-02-12 22:15:59,589 - big_teacher.src.Settings - ERROR - Settings : 71 - No section: 'sqldb'
+2021-02-12 22:15:59,589 - big_teacher.src.gui.SettingsGui - ERROR - SettingsGui : 101 - Settings were not loaded - <class 'TypeError'>
+2021-02-12 22:17:10,238 - root - INFO - MysqlConnector : 38 - Successful login - jwhite
+2021-02-12 22:17:10,238 - big_teacher.src.gui.LoginGui - INFO - LoginGui : 89 - jwhite successfully logged in
+2021-02-12 22:17:21,033 - root - INFO - MysqlConnector : 38 - Successful login - jwhite
+2021-02-12 22:17:21,033 - big_teacher.src.gui.LoginGui - INFO - LoginGui : 89 - jwhite successfully logged in
