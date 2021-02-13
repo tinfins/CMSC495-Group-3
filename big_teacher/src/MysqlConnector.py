@@ -11,9 +11,9 @@
 
 import sqlalchemy as db
 import pymysql
-#import cx_Oracle
-#import psycopg2
-#import pyodbc
+import cx_Oracle
+import psycopg2
+import pyodbc
 import logging
 import big_teacher.src.model.DataModel as DataModel
 
