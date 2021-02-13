@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import big_teacher.src.gui.SettingsGui as SettingsGui
-import big_teacher.src.gui.MainView as MainView
+import big_teacher.src.gui.TopLevelWindow as TopLevelWindow
 
 
 class MenuBarGui(tk.Frame):
@@ -30,7 +30,7 @@ class MenuBarGui(tk.Frame):
         menubar.add_cascade(label='File', menu=file_menu)
 
         # Edit_menu entries
-        edit_menu.add_command(label="Settings", command=lambda: MainView.SwitchWindow(master=self.master).new_window(SettingsGui.SettingsGui))
+        edit_menu.add_command(label="Settings", command=lambda: TopLevelWindow.SwitchWindow(master=self.master).new_window(SettingsGui.SettingsGui))
         menubar.add_cascade(label='Edit', menu=edit_menu)
 
 

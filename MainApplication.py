@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from ttkthemes import ThemedTk
 import logging.config
-import big_teacher.src.gui.MainView as MainView
+import big_teacher.src.gui.HomePage as HomePage
 import big_teacher.src.gui.LoginGui as LoginGui
 import big_teacher.src.gui.MenuStatus as MenuStatus
 from big_teacher.src.Settings import NoSettings
@@ -18,7 +18,7 @@ class MainApplication:
         # Menu bar Frame
         self.menu_frame = ttk.Frame(self.master)
         # Main content frame
-        self.content_frame = ttk.Frame(self.master, height=100, width=100)
+        self.content_frame = ttk.Frame(self.master)
         # Status bar frame
         self.status_frame = ttk.Frame(self.master)
 
@@ -40,12 +40,11 @@ class MainApplication:
         self.status_bar.pack()
 
         # Open LoginGui
-        self.DisplayLogin(self.master)
+        LoginGui.LoginGui(self.master, self.status_bar)
 
-    def DisplayLogin(self, master):
-        login_gui = MainView.SwitchWindow(master)
-        login_gui.new_window(_class=LoginGui.LoginGui)
-        #self.status_bar.bind('<Destroy>', MainView.MainView(self.content, self.master))
+        # Test Open Different Page Views
+        #HomePage.HomePage(self.master, self.status_bar)
+
 
 def main():
     logging.config.fileConfig(fname='config.ini', disable_existing_loggers=False)
