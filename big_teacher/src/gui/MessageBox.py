@@ -12,17 +12,29 @@ from tkinter import ttk, messagebox
 
 
 class MessageBox(tk.Frame):
+    '''
+    Create message boxes in new window
+    '''
     def __init__(self):
         super().__init__()
         self.mbox = tk.messagebox
 
     def onError(self, message):
+        '''
+        Error messages
+        '''
         self.mbox.showerror("Error", message)
 
     def onWarn(self, message):
+        '''
+        Warning messages
+        '''
         self.mbox.showwarning("Warning", message)
 
     def onInfo(self, message):
+        '''
+        Info messages
+        '''
         self.mbox.showinfo("Information", message)
 
 

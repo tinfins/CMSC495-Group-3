@@ -14,14 +14,14 @@ import logging
 
 
 class Settings:
-    """
+    '''
     Settings class to read and write application config to file
-    """
+    '''
     def __init__(self, config_file):
-        """
+        '''
         :param config_file:String:Name of config file to read/write
         :param section:String:Name of section to be added/modified
-        """
+        '''
         self.config = configparser.ConfigParser(interpolation=None)
         self.configFile = config_file
         self.config.read(self.configFile)
@@ -29,7 +29,8 @@ class Settings:
     def db_config_write(self, section, **settings):
         '''
         Writes config to file
-        :param:String:Database endpoint conn
+        :params section:String:config section to write
+        :param:String:key='value' format
         :return:String:host, username, password, db
         '''
         logger = logging.getLogger(__name__)
@@ -56,10 +57,10 @@ class Settings:
         return config_values
 
     def db_config_read(self, section):
-        """
+        '''
         Reads config from file
-        :return:String:host, username, password, db
-        """
+        :return:Dict:key value pairs from config section
+        '''
         logger = logging.getLogger(__name__)
         try:
             config_values = dict(self.config.items(section))

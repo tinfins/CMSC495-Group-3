@@ -9,6 +9,9 @@ class HomePage(tk.Frame):
     Class creates Home Page window.
     '''
     def __init__(self, master, controller):
+        '''
+        Initialize Home page
+        '''
         ttk.Frame.__init__(self, master)
         self.logger = logging.getLogger(__name__)
         self.master = master

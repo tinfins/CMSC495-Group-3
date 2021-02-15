@@ -12,6 +12,9 @@ class MainApplication:
     Main entry point of application
     '''
     def __init__(self):
+        '''
+        Initializes tk.Tk() and starts mainloop
+        '''
         self.logger = logging.getLogger(__name__)
         logging.config.fileConfig(fname='config.ini', disable_existing_loggers=False)
         self.master = ThemedTk(theme='arc', background=True)

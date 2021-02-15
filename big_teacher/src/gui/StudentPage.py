@@ -4,7 +4,13 @@ from tkinter import ttk
 
 
 class StudentPage(tk.Frame):
+    '''
+    Class creates Student Page frame.
+    '''
     def __init__(self, master, controller, content_frame):
+        '''
+        Initialize Student page
+        '''
         ttk.Frame.__init__(self, master)
         self.logger = logging.getLogger(__name__)
         self.master = master

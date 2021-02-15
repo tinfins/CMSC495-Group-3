@@ -9,12 +9,14 @@
 # https://github.com/tinfins/CMSC495-Group-3/ #
 ###############################################
 
+import sys
+import logging.config
 import sqlalchemy as db
 from sqlalchemy.sql import text
 #import cx_Oracle
 #import psycopg2
 #import pyodbc
-import logging.config
+import pandas as pd
 import big_teacher.src.model.DataModel as DataModel
 
 
@@ -46,7 +48,9 @@ class MysqlConnector:
     def login(cls, engine, settings):
         '''
         Login method, also tests connection to database
-        :return:True:If connection successful, returns True
+        :param engine:Obj:engine object from sqlalchemy
+        :param settings:Obj:settings object
+        :return:prof_obj:If connection successful, returns prof_obj professor info
         Closes db connection after connection. Engine stays active
         '''
         try:
@@ -60,11 +64,35 @@ class MysqlConnector:
         except:
             logging.critical(f"FAILED login - {settings.username}")
 
+    
+    @classmethod
+    def get_data(cls, engine, prof):
+        '''
+        Get data method, retrieves data from database and returns pandas dataframe
+        :param engine:Obj:engine object from sqlalchemy
+        :param prof:Obj:professor model
+        :return:df:If successful, returns matching data from db as dataframe
+        Closes db connection after connection. Engine stays active
+        '''
+        prof_lname = prof.prof_lname
+        try:
+            conn = engine.connect()
+            sql_query = text('SELECT * FROM StudentView WHERE prof_last_name = :x')
+            result = conn.execute(sql_query, x=prof_lname).fetchall()
+            df = pd.DataFrame(result)
+            df.columns = result[0].keys()
+            cls.logger.info('Data successfully retrieved')
+            return df
+        except:
+            cls.logger.error('Unable to fetch data...quitting...')
+            sys.exit(0)
+
+
     @classmethod
     def logout(cls):
         '''
-        Logout method, disposes of engine and closes connection
-        :return:String
+        Logout method, disposes of engine and connection pool
+        :return:False
         '''
         cls.engine.dispose()
         return False

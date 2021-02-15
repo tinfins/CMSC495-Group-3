@@ -14,6 +14,12 @@ class LoginController:
     Login controller for application
     '''
     def __init__(self, master, controller, layout):
+        '''
+        Initializes LoginController and displays Login gui
+        :params master:tk.Tk():master window
+        :params controller:tk.obj:common controller for all views (MainApplication)
+        :params layout:tk.Frame:MainLayout frame
+        '''
         self.logger = logging.getLogger(__name__)
         self.master = master
         self.controller = controller
@@ -24,13 +30,17 @@ class LoginController:
         self.login_view.reset_button.config(command=self.reset_entries)
         self.login_view.login_button.config(command=self.login)
 
-    # Reset Entries on Login Page
     def reset_entries(self):
+        '''
+        Reset entries for login page
+        '''
         self.login_view.username.set('')
         self.login_view.password.set('')
 
-    # Perform Login Function
     def login(self):
+        '''
+        Perform login function
+        '''
         # Get username and password values from login_view
         username = self.login_view.username.get()
         password = self.login_view.password.get()

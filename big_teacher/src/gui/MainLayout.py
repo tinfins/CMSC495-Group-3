@@ -11,6 +11,9 @@ class MainLayout(tk.Frame):
     Main GUI layout of application. Contains Menu Bar and Status Bar
     '''
     def __init__(self, master, controller):
+        '''
+        Initialize Main Layout page
+        '''
         ttk.Frame.__init__(self, master)
         self.logger = logging.getLogger(__name__)
         self.master = master

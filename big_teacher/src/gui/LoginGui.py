@@ -8,6 +8,9 @@ class LoginGui(tk.Frame):
     Class creates Login window.
     '''
     def __init__(self, master, controller):
+        '''
+        Initialize Login page
+        '''
         ttk.Frame.__init__(self, master)
         self.logger = logging.getLogger(__name__)
         self.master = master

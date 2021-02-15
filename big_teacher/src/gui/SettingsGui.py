@@ -11,6 +11,9 @@ class SettingsGui:
     Settings window should be opened as a TopLevel window, not in root window
     '''
     def __init__(self, master):
+        '''
+        Initialize Settings page
+        '''
         self.master = master
         self.master.title('Big Teacher Settings')
         self.logger = logging.getLogger(__name__)
@@ -102,6 +105,9 @@ class SettingsGui:
             self.status_bar.status_set('Error encountered loading settings')
 
     def load_settings(self):
+        '''
+        Loads settings from file to populate settings page
+        '''
         settings = Settings.Settings(config_file='config.ini').db_config_read(section='sqldb')
         self.db_type.set(settings['db_type'])
         self.host.set(settings['host'])
@@ -111,6 +117,9 @@ class SettingsGui:
         self.status_bar.status_set(f'Settings successfully loaded from config.ini')
 
     def save_settings(self):
+        '''
+        Saves settings to file
+        '''
         db_type = self.db_type.get()
         host = self.host.get()
         port = self.port.get()
@@ -122,4 +131,7 @@ class SettingsGui:
         self.close_window()
 
     def close_window(self):
+        '''
+        Close window
+        '''
         self.master.destroy()

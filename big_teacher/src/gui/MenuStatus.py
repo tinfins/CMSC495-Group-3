@@ -10,6 +10,9 @@ class MenuBarGui(tk.Frame):
     Creates application menus
     '''
     def __init__(self, master, controller):
+        '''
+        Initialize menu bar for all pages
+        '''
         tk.Frame.__init__(self, master)
         self.master = master
         self.controller = controller
@@ -41,6 +44,9 @@ class StatusBar(tk.Frame):
     Creates application status bar
     '''
     def __init__(self, master):
+        '''
+        Initialize status bar for all pages
+        '''
         tk.Frame.__init__(self, master)
         self.master = master
 
@@ -52,7 +58,14 @@ class StatusBar(tk.Frame):
         self.pack(side=tk.BOTTOM, fill=tk.X)
 
     def status_set(self, msg):
+        '''
+        Sets status message in status bar label
+        :params msg:String:message to display
+        '''
         self.status_var.set(f' {msg}')
 
     def status_clear(self):
+        '''
+        Clears status bar label
+        '''
         self.status_var.set('')
