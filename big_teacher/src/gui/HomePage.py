@@ -20,14 +20,15 @@ class HomePage(tk.Frame):
         # Frame for window elements
         self.top_frame = ttk.Frame(self.master_frame)
         self.mid_frame = ttk.Frame(self.master_frame)
-        view_label_frame = ttk.LabelFrame(self.mid_frame, text='Home Page')
-        self.top_content_frame = ttk.Frame(view_label_frame)
-        self.bottom_content_frame = ttk.Frame(view_label_frame)
+        self.view_label_frame = ttk.LabelFrame(self.mid_frame, text='Home Page')
+        self.content_frame = ttk.Frame(self.view_label_frame)
+        self.top_content_frame = ttk.Frame(self.content_frame)
+        self.bottom_content_frame = ttk.Frame(self.content_frame)
         spacer1 = ttk.Frame(self.master_frame, width=75, height=50)
-        spacer2 = ttk.Frame(view_label_frame, width=75, height=40)
-        spacer3 = ttk.Frame(view_label_frame, width=75, height=40)
-        spacer4 = ttk.Frame(view_label_frame, width=75, height=20)
-        spacer5 = ttk.Frame(view_label_frame, width=75, height=20)
+        spacer2 = ttk.Frame(self.content_frame, width=75, height=40)
+        spacer3 = ttk.Frame(self.content_frame, width=75, height=40)
+        spacer4 = ttk.Frame(self.content_frame, width=75, height=20)
+        spacer5 = ttk.Frame(self.content_frame, width=75, height=20)
 
         # Pack root frame
         self.master_frame.pack()
@@ -70,7 +71,8 @@ class HomePage(tk.Frame):
         # Pack frames with widgets
         self.welcome_label.pack(side=tk.LEFT, padx=25, pady=10)
         self.logout_button.pack()
-        view_label_frame.pack(padx=75, pady=10)
+        self.view_label_frame.pack(padx=75, pady=10)
+        self.content_frame.pack()
         self.img_panel1.pack(side=tk.LEFT, padx=50, pady=10)
         self.img_panel2.pack(side=tk.LEFT, padx=50, pady=10)
         self.img_panel3.pack(side=tk.LEFT, padx=50, pady=10)

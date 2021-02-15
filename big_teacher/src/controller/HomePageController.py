@@ -1,8 +1,8 @@
 import logging.config
 import MainApplication
 import big_teacher.src.gui.HomePage as HomePage
-import big_teacher.src.controller.MysqlConnector as MySqlConnector
-import big_teacher.src.controller.StudentViewController as StudentViewController
+import big_teacher.src.controller.MysqlConnector as MysqlConnector
+import big_teacher.src.controller.StudentPageController as StudentPageController
 import big_teacher.src.controller.LoginController as LoginController
 
 
@@ -36,7 +36,8 @@ class HomePageController:
 
     def students_controller(self):
         self.layout.status_bar.status_set('Students View selected')
-        StudentViewController.StudentViewController(self.master, self, self.layout, self.engine, self.prof_obj)
+        self.home_view.content_frame.pack_forget()
+        StudentPageController.StudentPageController(self.master, self, self.layout, self.home_view.view_label_frame, self.engine, self.prof_obj)
 
     def assignments_controller(self):
         self.layout.status_bar.status_set('Assignments View selected')
@@ -44,7 +45,9 @@ class HomePageController:
     def analysis_controller(self):
         self.layout.status_bar.status_set('Analysis View selected')
 
+'''
     def logout(self):
-        MySqlConnector.MysqlConnector.logout(self.engine)
-        MySqlConnector.MysqlConnector.logout(self.engine, self.settings)
+        MysqlConnector.MysqlConnector.logout(self.engine)
+        MysqlConnector.MysqlConnector.logout(self.engine, self.settings)
         LoginController.LoginController(self.master, self, self.layout)
+        '''
