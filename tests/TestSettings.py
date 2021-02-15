@@ -2,7 +2,7 @@ import unittest
 import os
 
 # Modules to Test
-from big_teacher.src import Settings
+from big_teacher.src.controller import Settings
 
 
 class TestSettings(unittest.TestCase):
@@ -11,7 +11,7 @@ class TestSettings(unittest.TestCase):
         super(TestSettings, cls).setUpClass()
         print("setUpClass has started...")
         # Settings class instantiate
-        cls.config = Settings.Settings('testConfig.ini', 'mysql_db')
+        cls.config = Settings.Settings('testConfig.ini')
         # Initial values
         cls.host = 'aws'
         cls.username = 'user'
@@ -24,7 +24,7 @@ class TestSettings(unittest.TestCase):
         '''
         Test Settings.dbConfigWrite() vs testDict
         '''
-        config_write_dict = self.config.db_config_write(host=self.host, username=self.username, password=self.password, db_name=self.db_name)
+        config_write_dict = self.config.db_config_write(section='sqldb', host=self.host, username=self.username, password=self.password, db_name=self.db_name)
         self.assertEqual(config_write_dict, self.testDict, "Dicts should be equal values")
 
     @classmethod

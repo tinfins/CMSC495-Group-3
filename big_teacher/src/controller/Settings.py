@@ -10,7 +10,6 @@
 
 import configparser
 import os
-import sys
 import logging
 
 
@@ -26,7 +25,6 @@ class Settings:
         self.config = configparser.ConfigParser(interpolation=None)
         self.configFile = config_file
         self.config.read(self.configFile)
-        #self.config_section = section
 
     def db_config_write(self, section, **settings):
         '''

@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+import MainApplication
 import big_teacher.src.gui.SettingsGui as SettingsGui
 import big_teacher.src.gui.TopLevelWindow as TopLevelWindow
 
@@ -11,6 +12,7 @@ class MenuBarGui(tk.Frame):
     def __init__(self, master, controller):
         tk.Frame.__init__(self, master)
         self.master = master
+        self.controller = controller
 
         # Menubar setup
         menubar = tk.Menu(self.master)

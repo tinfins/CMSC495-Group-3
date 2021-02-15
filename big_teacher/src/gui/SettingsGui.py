@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 import sys
 import big_teacher.src.gui.MenuStatus as MenuStatus
-import big_teacher.src.Settings as Settings
+import big_teacher.src.controller.Settings as Settings
 
 
 class SettingsGui:
