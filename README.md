@@ -48,7 +48,7 @@ TODO:
 - [Kelly Green](https://github.com/KGreen11) (Test Director)
 - [Brian Ekelman](https://github.com/hedclever) (Software Designer)
 - [Taylor Clemons](https://github.com/tinfins/) (Requirements Manager/Technical Writer)
-- Colin Dupreay (User Experience/Training Manager)
+- [Colin Dupreay](https://github.com/cdupreay) (User Experience/Training Manager)
 
 ## Resources
 - [Using Git and GitHub for Team Collaboration](https://medium.com/anne-kerrs-blog/using-git-and-github-for-team-collaboration-e761e7c00281)
