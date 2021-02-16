@@ -32,8 +32,8 @@ class HomePageController:
 
         # Set commands for Image buttons on HomePage
         self.home_view.img_panel1.bind('<Button-1>', lambda event: self.students_controller())
-        self.home_view.img_panel3.bind('<Button-1>', lambda event: self.on_focus(event, self.assignments_controller()))
-        self.home_view.img_panel4.bind('<Button-1>', lambda event: self.on_focus(event, self.analysis_controller()))
+        self.home_view.img_panel3.bind('<Button-1>', lambda event: self.assignments_controller())
+        self.home_view.img_panel4.bind('<Button-1>', lambda event: self.analysis_controller())
 
     # Method used for label on-click events
     def on_focus(self, event, command):
@@ -50,7 +50,7 @@ class HomePageController:
         Sets status bar msg, forgets current page pack and opens selected page in label_frame
         '''
         self.layout.status_bar.status_set('Students View selected')
-        self.home_view.master_frame.destroy()
+        self.close_window()
         self.controller.student_frame()
         #StudentPageController.StudentPageController(self.master, self, self.layout, self.home_view.view_label_frame, self.engine, self.prof_obj, self.df)
 
@@ -59,7 +59,7 @@ class HomePageController:
         Sets status bar msg, forgets current page pack and opens selected page in label_frame
         '''
         self.layout.status_bar.status_set('Assignments View selected')
-        self.home_view.master_frame.destroy()
+        self.close_window()
         self.controller.assignments_frame()
 
     def analysis_controller(self):
@@ -67,6 +67,9 @@ class HomePageController:
         Sets status bar msg, forgets current page pack and opens selected page in label_frame
         '''
         self.layout.status_bar.status_set('Analysis View selected')
+        self.close_window()
+
+    def close_window(self):
         self.home_view.master_frame.destroy()
 
 '''

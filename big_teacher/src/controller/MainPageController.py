@@ -42,7 +42,7 @@ class MainPageController:
         self.main_view.logout_button.config(command=self.logout)
 
         # Set home button command
-        self.main_view.home_button.config(command=lambda: self.show_frame('Home Page'))
+        self.main_view.home_button.config(command=lambda: None)
 
         self.home_frame()
 

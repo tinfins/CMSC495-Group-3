@@ -29,3 +29,5 @@ class StudentPageController:
         self.engine = engine
         self.prof = prof
         self.data_frame = data_frame
+
+        self.controller.main_view.home_button.config(command=lambda: (self.student_page.master_frame.destroy(), self.controller.home_frame()))
