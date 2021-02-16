@@ -32,8 +32,7 @@ class MainPageController:
         self.settings = settings
         self.engine = engine
         self.prof_obj = prof
-        self.df = 'test'
-            #MysqlConnector.MysqlConnector.get_data(self.engine, self.prof_obj)
+        self.df = MysqlConnector.MysqlConnector.get_data(self.engine, self.prof_obj)
 
         # Set welcome_label
         self.main_view.welcome_label.config(text=f'Welcome, {self.prof_obj.prof_fname} {self.prof_obj.prof_lname}')
@@ -47,25 +46,28 @@ class MainPageController:
         self.home_frame()
 
     def home_frame(self):
-        self.main_view.view_label_frame.config(text='Home Page')
-        # self.container.pack_forget()
         HomePageController.HomePageController(self.master, self, self.layout, self.container, self.engine,
                                               self.prof_obj, self.df)
+        self.main_view.view_label_frame.config(text='Home Page')
 
     def student_frame(self):
-        self.main_view.view_label_frame.config(text='Student View')
-        # self.container.pack_forget()
         StudentPageController.StudentPageController(self.master, self, self.layout, self.container, self.engine,
                                                     self.prof_obj, self.df)
+        self.main_view.view_label_frame.config(text='Student View')
 
     def assignments_frame(self):
-        self.main_view.view_label_frame.config(text='Assignments View')
         # self.container.pack_forget()
         AssignmentsPageController.AssignmentsPageController(self.master, self, self.layout,
                                                             self.main_view.content_frame, self.engine, self.prof_obj,
                                                             self.df)
+        self.main_view.view_label_frame.config(text='Assignments View')
 
-        # self.frames['Analysis Page'] = AnalysisPageController.AnalysisPageController(self.master, self, self.layout, self.container, self.engine, self.prof_obj, self.df)
+    def close_window(self):
+        self.maine_view.master_frame.destroy()
+
+    def destroy_child_widgets(self):
+        for child in self.container.winfo_children():
+            child.destroy()
 
     def logout(self):
         '''

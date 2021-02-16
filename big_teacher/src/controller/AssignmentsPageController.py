@@ -31,4 +31,18 @@ class AssignmentsPageController:
         self.prof = prof
         self.data_frame = data_frame
 
-        self.controller.main_view.home_button.config(command=lambda: (self.assignments_page.master_frame.destroy(), self.controller.home_frame()))
+        self.controller.main_view.home_button.config(command=lambda: (self.controller.destroy_child_widgets(), self.controller.home_frame()))
+
+        # Dynamically set course combobox
+        self.assignments_page.class_subject['values'] = self.get_classes()
+        self.assignments_page.class_subject.current(0)
+
+    def get_classes(self):
+        '''
+        DataFrame is already localized to professor based on login
+        '''
+        classes = self.data_frame['course_name'].unique()
+        course_names = []
+        for course in classes:
+            course_names.append(course)
+        return tuple(classes)

@@ -27,11 +27,11 @@ class MainPage(tk.Frame):
         self.bottom_frame = ttk.Frame(self.master_frame)
 
         # Pack root frame
-        self.master_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        self.master_frame.pack(side=tk.TOP, fill=tk.BOTH)
         self.top_frame.pack(side=tk.TOP)
-        self.mid_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        self.mid_frame.pack(side=tk.TOP, fill=tk.BOTH)
         self.view_label_frame.pack(padx=75, pady=10)
-        self.content_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        self.content_frame.pack(side=tk.TOP, fill=tk.BOTH)
         self.bottom_frame.pack(side=tk.BOTTOM)
 
         # Welcome label

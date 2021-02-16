@@ -13,7 +13,6 @@ class HomePage(tk.Frame):
         Initialize Home page
         '''
         ttk.Frame.__init__(self, master)
-        print('loading hp gui')
         self.logger = logging.getLogger(__name__)
         self.master = master
         self.controller = controller
@@ -35,11 +34,11 @@ class HomePage(tk.Frame):
         spacer5 = ttk.Frame(self.content_frame, width=75, height=20)
 
         # Pack root frame
-        self.master_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        self.master_frame.pack(side=tk.TOP, fill=tk.BOTH)
         self.top_frame.pack(side=tk.TOP)
         self.mid_frame.pack(side=tk.TOP)
         spacer2.pack(side=tk.TOP)
-        #spacer3.pack(side=tk.BOTTOM)
+        spacer3.pack(side=tk.BOTTOM)
         spacer4.pack(side=tk.LEFT)
         spacer5.pack(side=tk.RIGHT)
         self.icon_frame.pack()
@@ -72,4 +71,4 @@ class HomePage(tk.Frame):
         self.img_panel2.pack(side=tk.LEFT, padx=50, pady=10)
         self.img_panel3.pack(side=tk.LEFT, padx=50, pady=10)
         self.img_panel4.pack(side=tk.LEFT, padx=50, pady=10)
-        spacer1.pack(side=tk.BOTTOM)
+        #spacer1.pack(side=tk.BOTTOM)

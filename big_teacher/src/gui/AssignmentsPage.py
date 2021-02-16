@@ -29,14 +29,9 @@ class AssignmentsPage(tk.Frame):
         self.mid_frame.pack(side=tk.TOP)
 
         classes_label = ttk.Label(self.top_frame, text='Classes:')
-        self.class_value = tk.StringVar(self.top_frame, 'CMSC 495-6380')
+        self.class_value = tk.StringVar(self.top_frame)
         self.class_subject = ttk.Combobox(self.top_frame, textvariable=self.class_value, state='readonly')
 
-        # TODO: Populate this list dynamically from model
-        self.class_subject['values'] = ('CMSC 495-6380',
-                                  'SDEV 300-1234',
-                                  'SDEV 460-5678'
-                                  )
         test_label = ttk.Label(self.mid_frame, text='Test Page', font=(None, 20))
 
         classes_label.pack(side=tk.LEFT, padx=25, pady=10)
