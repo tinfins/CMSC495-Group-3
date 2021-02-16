@@ -1,4 +1,5 @@
 import logging.config
+from pandastable import Table, config
 # Big Teacher module imports
 import big_teacher.src.gui.StudentPage as StudentPage
 import pandas as pd
@@ -36,6 +37,11 @@ class StudentPageController:
         # Dynamically set course combobox
         self.student_page.class_subject['values'] = self.get_classes()
         self.student_page.class_subject.current(0)
+        
+        self.display_table(self.student_page.class_subject.get())
+        
+        self.student_page.class_subject.bind('<<ComboboxSelected>>', lambda event: self.display_table(self.student_page.class_subject.get()))
+        
 
     def get_classes(self):
         '''
@@ -47,4 +53,12 @@ class StudentPageController:
             course_names.append(course)
         return tuple(classes)
 
-
+    def display_table(self, course):
+        data_table = self.data_frame.loc[self.data_frame['course_name'] == course][['student_last_name', 'student_first_name', 'course_name', 'homework_1', 'test_1']]
+        print(data_table)
+        
+        #df = TableModel.getSampleData()
+        pt = Table(self.student_page.mid_frame, dataframe=data_table, showtoolbar=True, width=800, height=600)
+        options = {'fontsize': 5}
+        config.apply_options(options, pt)
+        pt.show()

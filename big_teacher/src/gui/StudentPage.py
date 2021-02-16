@@ -29,11 +29,8 @@ class StudentPage(tk.Frame):
         self.mid_frame.pack(side=tk.TOP)
 
         classes_label = ttk.Label(self.top_frame, text='Classes:')
-        self.class_value = tk.StringVar(self.top_frame)
+        self.class_value = tk.StringVar()
         self.class_subject = ttk.Combobox(self.top_frame, textvariable=self.class_value, state='readonly')
-
-        test_label = ttk.Label(self.mid_frame, text='Test Page', font=(None, 20))
 
         classes_label.pack(side=tk.LEFT, padx=25, pady=10)
         self.class_subject.pack()
-        test_label.pack()
