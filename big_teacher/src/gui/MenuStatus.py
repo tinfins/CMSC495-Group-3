@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-import MainApplication
+# Big Teacher module imports
+import big_teacher.src.controller.MainPageController as MainPageController
 import big_teacher.src.gui.SettingsGui as SettingsGui
 import big_teacher.src.gui.TopLevelWindow as TopLevelWindow
 

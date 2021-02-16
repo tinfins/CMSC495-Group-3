@@ -75,24 +75,14 @@ class MysqlConnector:
         Closes db connection after connection. Engine stays active
         '''
         prof_lname = prof.prof_lname
-        try:
-            conn = engine.connect()
-            sql_query = text('SELECT * FROM StudentView WHERE prof_last_name = :x')
-            result = conn.execute(sql_query, x=prof_lname).fetchall()
-            df = pd.DataFrame(result)
-            df.columns = result[0].keys()
-            cls.logger.info('Data successfully retrieved')
-            return df
-        except:
-            cls.logger.error('Unable to fetch data...quitting...')
-            sys.exit(0)
-
-
-    @classmethod
-    def logout(cls):
-        '''
-        Logout method, disposes of engine and connection pool
-        :return:False
-        '''
-        cls.engine.dispose()
-        return False
+        #try:
+        conn = engine.connect()
+        sql_query = text('SELECT * FROM StudentView WHERE prof_last_name = :x')
+        result = conn.execute(sql_query, x=prof_lname).fetchall()
+        df = pd.DataFrame(result)
+        df.columns = result[0].keys()
+        cls.logger.info('Data successfully retrieved')
+        return df
+        #except:
+        #    cls.logger.error('Unable to fetch data...quitting...')
+        #    sys.exit(0)

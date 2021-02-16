@@ -31,7 +31,7 @@ class Settings:
         Writes config to file
         :params section:String:config section to write
         :param:String:key='value' format
-        :return:String:host, username, password, db
+        :return:Dict:key value pairs from config section
         '''
         logger = logging.getLogger(__name__)
         # Try-except for duplicate section error, allowing field overwrites
@@ -59,6 +59,7 @@ class Settings:
     def db_config_read(self, section):
         '''
         Reads config from file
+        :params section:String:config section to read
         :return:Dict:key value pairs from config section
         '''
         logger = logging.getLogger(__name__)

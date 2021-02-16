@@ -2,6 +2,7 @@ import logging.config
 import tkinter as tk
 from tkinter import ttk
 import sys
+# Big Teacher module imports
 import big_teacher.src.gui.MenuStatus as MenuStatus
 import big_teacher.src.controller.Settings as Settings
 

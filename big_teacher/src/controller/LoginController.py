@@ -1,11 +1,10 @@
-# Standard imports
 import logging.config
 # Big Teacher module imports
 import big_teacher.src.gui.LoginGui as LoginGui
 import big_teacher.src.gui.MessageBox as MessageBox
 import big_teacher.src.controller.Settings as Settings
 import big_teacher.src.model.DataModel as DataModel
-import big_teacher.src.controller.HomePageController as HomePageController
+import big_teacher.src.controller.MainPageController as MainPageController
 import big_teacher.src.controller.MysqlConnector as MysqlConnector
 
 
@@ -60,7 +59,7 @@ class LoginController:
                 self.logger.info(f"{settings_model.username} successfully logged in")
                 self.login_view.master_frame.destroy()
                 # Call HomePage Controller
-                HomePageController.HomePageController(self.master, self, self.layout, db_engine, settings_model, prof)
+                MainPageController.MainPageController(self.master, self, self.layout, db_engine, settings_model, prof)
             else:
                 # Executes on failed login
                 self.logger.warning(f"{settings_model.username} FAILED login attempt")
