@@ -13,12 +13,11 @@ For Developers interested in using our application as a base to building their o
 ### Pre-requisites
 Python 3.7
 ### Required dependencies
-- ttkthemes~=3.2.0
-- SQLAlchemy~=1.3.22
-- PyMySQL~=1.0.2
-- Pillow~=8.1.0
-- psycopg2~=2.8.6
-- pyodbc~=4.0.30
+- Pillow==8.1.0
+- PyMySQL==1.0.2
+- SQLAlchemy==1.3.23
+- ttkthemes==3.2.0
+- pandas==1.2.2
   
 (See requirements.txt file for most up to date dependencies)
 
