@@ -2,7 +2,6 @@ import logging.config
 from pandastable import Table, config
 # Big Teacher module imports
 import big_teacher.src.gui.StudentPage as StudentPage
-import pandas as pd
 
 
 class StudentPageController:
@@ -54,7 +53,7 @@ class StudentPageController:
         return tuple(classes)
 
     def display_table(self, course):
-        data_table = self.data_frame.loc[self.data_frame['course_name'] == course][['student_last_name', 'student_first_name', 'course_name', 'homework_1', 'test_1']]
+        data_table = self.data_frame.loc[self.data_frame['course_name'] == course][['student_last_name', 'student_first_name', 'course_name']]
         print(data_table)
         
         #df = TableModel.getSampleData()
