@@ -55,9 +55,7 @@ class AssignmentsPageController:
 
     def display_table(self, course):
         data_table = self.data_frame.loc[self.data_frame['course_name'] == course][['student_last_name', 'student_first_name', 'course_name', 'homework_1', 'test_1']]
-        print(data_table)
-        
-        #df = TableModel.getSampleData()
+
         pt = Table(self.assignments_page.mid_frame, dataframe=data_table, showtoolbar=True, width=800, height=600)
         options = {'fontsize': 8}
         config.apply_options(options, pt)
