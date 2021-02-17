@@ -23,7 +23,7 @@ class MainPage(tk.Frame):
         self.top_frame = ttk.Frame(self.master_frame)
         self.mid_frame = ttk.Frame(self.master_frame)
         self.view_label_frame = ttk.LabelFrame(self.mid_frame, text='Home Page')
-        self.content_frame = ttk.Frame(self.view_label_frame)
+        self.content_frame = ttk.Frame(self.view_label_frame, width=800, height=600)
         self.bottom_frame = ttk.Frame(self.master_frame)
 
         # Pack root frame

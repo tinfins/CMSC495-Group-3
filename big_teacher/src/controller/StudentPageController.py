@@ -58,6 +58,6 @@ class StudentPageController:
         
         #df = TableModel.getSampleData()
         pt = Table(self.student_page.mid_frame, dataframe=data_table, showtoolbar=True, width=800, height=600)
-        options = {'fontsize': 5}
+        options = {'fontsize': 8}
         config.apply_options(options, pt)
         pt.show()
