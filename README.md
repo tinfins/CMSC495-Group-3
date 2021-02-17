@@ -18,6 +18,8 @@ Python 3.7
 - SQLAlchemy==1.3.23
 - ttkthemes==3.2.0
 - pandas==1.2.2
+- future==0.18.2
+- pandastable==0.12.2.post1
   
 (See requirements.txt file for most up to date dependencies)
 
