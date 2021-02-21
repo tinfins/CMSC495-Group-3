@@ -66,7 +66,7 @@ class MainPageController:
         self.main_page.view_label_frame.config(text='Home Page')
         # Set commands for Image buttons on HomePage
         self.home_page.img_panel1.bind('<Button-1>', lambda event: self.students_frame())
-        self.home_page.img_panel3.bind('<Button-1>', lambda event: None)
+        self.home_page.img_panel3.bind('<Button-1>', lambda event: self.assignments_frame())
         self.home_page.img_panel4.bind('<Button-1>', lambda event: None)
         return self.home_page
 
@@ -83,11 +83,11 @@ class MainPageController:
         # Dynamically set course combobox
         self.student_page.class_subject['values'] = self.df_query.get_classes()
         self.student_page.class_subject.current(0)
-        # Display table based on course selected
-        self.display_table(self.student_page.class_subject.get())
+        table1 = self.get_table(self.student_page.class_subject.get(), self.student_page.students_frame)
+        table2 = self.get_table(self.student_page.class_subject.get(), self.student_page.assignments_frame)
         # Combobox select event bind
         self.student_page.class_subject.bind('<<ComboboxSelected>>',
-                                             lambda event: self.display_table(self.student_page.class_subject.get()))
+                                             lambda event: (table1.close(), table2.close(), self.get_table(self.student_page.class_subject.get(), self.student_page.students_frame), self.get_table(self.student_page.class_subject.get(), self.student_page.assignments_frame)))
         return self.student_page
 
     def assignments_frame(self):
@@ -105,23 +105,34 @@ class MainPageController:
         self.assignments_page.class_subject['values'] = self.df_query.get_classes()
         self.assignments_page.class_subject.current(0)
         # Display table based on course selected
-        self.display_table(self.assignments_page.class_subject.get())
+        table1 = self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.students_frame)
+        table2 = self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.assignments_frame)
         # Combobox select event bind
         self.assignments_page.class_subject.bind('<<ComboboxSelected>>',
-                                             lambda event: self.display_table(self.assignments_page.class_subject.get()))
+                                             lambda event: (
+                                             table1.close(), table2.close(), self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.students_frame), self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.assignments_frame)))
         return self.assignments_page
 
-    def display_table(self, course):
+    def get_table(self, course, frame):
+        # Display students table based on course selected
+        students_table = self.df_query.get_students(course)
+        table1 = self.display_table(students_table, frame)
+        # Display assignments table based on course selected
+        #assignments_table = self.df_query.get_students(course, self.df)
+        #table2 = self.display_table(assignments_table, self.student_page.assignments_frame)
+        return table1
+
+    def display_table(self, data_table, frame):
         '''
         Display table in pandastable tk widget
-        :param course:String:course name
+        :param data_table:pandas data frame
+        :param frame:tkFrame to display pandastable widget
         '''
-        data_table = self.df_query.get_table(course, self.df)
-
-        pt = Table(self.student_page.mid_frame, dataframe=data_table, showtoolbar=True, width=800, height=600)
+        pt = Table(frame, dataframe=data_table, showtoolbar=False)
         options = {'fontsize': 8}
         config.apply_options(options, pt)
         pt.show()
+        return pt
 
     def close_window(self):
         self.main_page.master_frame.destroy()

@@ -21,10 +21,16 @@ class StudentPage(tk.Frame):
         # Frame for top window elements
         self.top_frame = ttk.Frame(self.master_frame)
         self.mid_frame = ttk.Frame(self.master_frame)
+        self.content_frame = ttk.Frame(self.master_frame)
+        self.students_frame = ttk.Frame(self.content_frame)
+        self.assignments_frame = ttk.Frame(self.content_frame)
 
         self.master_frame.pack()
         self.top_frame.pack(side=tk.TOP)
         self.mid_frame.pack(side=tk.TOP)
+        self.content_frame.pack()
+        self.students_frame.pack(side=tk.LEFT, padx=10, pady=10)
+        self.assignments_frame.pack(side=tk.RIGHT, padx=10, pady=10)
 
         classes_label = ttk.Label(self.top_frame, text='Classes:')
         self.class_value = tk.StringVar()
