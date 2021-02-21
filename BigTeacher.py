@@ -21,6 +21,7 @@ class BigTeacher:
         self.layout = MainLayout.MainLayout(self.master, self)
         # Each controller requires self.master, self, self.layout
         self.login_controller = LoginController.LoginController(self.layout, self)
+        self.logger.info('BigTeacher started')
         self.layout.mainloop()
 
 def main():
@@ -28,14 +29,12 @@ def main():
     Main entry point of application
     :return:
     '''
-    logging.config.fileConfig(fname='config.ini', disable_existing_loggers=False)
-    logger = logging.getLogger(__name__)
     settings = Settings('config.ini')
-    check_dir = settings.check_log_dir('logs')
+    check_dir = settings.check_log_dir('src/logs')
     check_settings = settings.check_log_config(settings.config_file)
     if not check_dir or not check_settings:
         settings.create_log_settings(file='config.ini', directory='logs', dir_true=check_dir)
-    logger.info('BigTeacher started')
+        settings.write_config(settings.config)
     BigTeacher()
 
 
