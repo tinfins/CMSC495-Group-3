@@ -45,5 +45,5 @@ class MainPage(tk.Frame):
 
         # Pack frames with widgets
         self.welcome_label.pack(side=tk.LEFT, padx=25, pady=10)
-        self.home_button.pack()
+        self.home_button.pack(padx=25, pady=25)
         self.logout_button.pack(padx=25, pady=25)

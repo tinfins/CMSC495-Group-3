@@ -3,8 +3,8 @@ import tkinter as tk
 from tkinter import ttk
 import sys
 # Big Teacher module imports
-import big_teacher.src.gui.MenuStatus as MenuStatus
-import big_teacher.src.controller.Settings as Settings
+import src.gui.MenuStatus as MenuStatus
+from src.utils.Settings import Settings
 
 
 class SettingsGui:
@@ -109,11 +109,12 @@ class SettingsGui:
         '''
         Loads settings from file to populate settings page
         '''
-        settings = Settings.Settings(config_file='config.ini').db_config_read(section='sqldb')
-        self.db_type.set(settings['db_type'])
-        self.host.set(settings['host'])
-        self.port.set(settings['port'])
-        self.db_name.set(settings['db_name'])
+        settings = Settings(config_file='config.ini')
+        config = settings.db_config_read(section='sqldb')
+        self.db_type.set(config['db_type'])
+        self.host.set(config['host'])
+        self.port.set(config['port'])
+        self.db_name.set(config['db_name'])
         self.logger.info(f'Settings successfully loaded from config.ini')
         self.status_bar.status_set(f'Settings successfully loaded from config.ini')
 
@@ -125,8 +126,9 @@ class SettingsGui:
         host = self.host.get()
         port = self.port.get()
         db_name = self.db_name.get()
-        settings = Settings.Settings(config_file='config.ini')
-        settings.db_config_write(section='sqldb', db_type=db_type, host=host, port=port, db_name=db_name)
+        settings = Settings(config_file='config.ini')
+        config = settings.db_config_write(section='sqldb', db_type=db_type, host=host, port=port, db_name=db_name)
+        settings.write_config(config)
         self.logger.info(f'config.ini {db_type} section updated')
         self.status_bar.status_set(f'config.ini {db_type} section updated')
         self.close_window()

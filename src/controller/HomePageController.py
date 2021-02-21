@@ -1,6 +1,6 @@
 import logging.config
 # Big Teacher module imports
-import big_teacher.src.gui.HomePage as HomePage
+import src.gui.HomePage as HomePage
 
 
 class HomePageController:

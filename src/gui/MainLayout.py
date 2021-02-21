@@ -3,7 +3,7 @@ import logging.config
 import tkinter as tk
 from tkinter import ttk
 # Big Teacher module imports:
-import big_teacher.src.gui.MenuStatus as MenuStatus
+import src.gui.MenuStatus as MenuStatus
 
 
 class MainLayout(tk.Frame):

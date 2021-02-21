@@ -1,7 +1,7 @@
 import logging.config
 from pandastable import Table, config
 # Big Teacher module imports
-import big_teacher.src.gui.AssignmentsPage as AssignmentsPage
+import src.gui.AssignmentsPage as AssignmentsPage
 
 
 class AssignmentsPageController:

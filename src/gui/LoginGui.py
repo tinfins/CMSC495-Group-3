@@ -15,7 +15,7 @@ class LoginGui(tk.Frame):
         self.logger = logging.getLogger(__name__)
         self.master = master
         self.controller = controller
-        self.master.title("Big Teacher Login")
+        self.controller.master.title("Big Teacher Login")
 
         # Master frame for all widgets
         self.master_frame = ttk.Frame(self.master)

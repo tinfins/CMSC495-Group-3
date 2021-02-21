@@ -1,18 +1,17 @@
 import logging.config
 # Big Teacher module imports
-import big_teacher.src.gui.LoginGui as LoginGui
-import big_teacher.src.gui.MessageBox as MessageBox
-import big_teacher.src.controller.Settings as Settings
-import big_teacher.src.model.DataModel as DataModel
-import big_teacher.src.controller.MainPageController as MainPageController
-import big_teacher.src.controller.MysqlConnector as MysqlConnector
+import src.gui.LoginGui as LoginGui
+import src.gui.MessageBox as MessageBox
+from src.utils.Settings import Settings
+import src.controller.MainPageController as MainPageController
+from src.utils.Connector import Connector
 
 
 class LoginController:
     '''
     Login controller for application
     '''
-    def __init__(self, master, controller, layout):
+    def __init__(self, master, controller):
         '''
         Initializes LoginController and displays Login gui
         :params master:tk.Tk():master window
@@ -22,7 +21,6 @@ class LoginController:
         self.logger = logging.getLogger(__name__)
         self.master = master
         self.controller = controller
-        self.layout = layout
         self.login_view = LoginGui.LoginGui(self.master, self.controller)
 
         # Set commands for LoginGui buttons
@@ -44,28 +42,25 @@ class LoginController:
         username = self.login_view.username.get()
         password = self.login_view.password.get()
         # Read settings from config.ini file
-        settings = Settings.Settings('config.ini')
+        settings = Settings('config.ini')
         config_values = settings.db_config_read('sqldb')
-        # Create settings model object
-        settings_model = DataModel.SettingsModel(_dialect=config_values['db_type'], _username=username, _password=password, _host=config_values['host'], _port=config_values['port'], _db_name=config_values['db_name'])
         try:
             # Create engine
-            db_engine = MysqlConnector.MysqlConnector.create_engine(settings_model)
-            # Logs in via MysqlConnector and returns professorModel object
-            prof = MysqlConnector.MysqlConnector.login(db_engine, settings_model)
-            # Checks if prof object is populated or not
-            if prof:
-                self.layout.status_bar.status_set(f'{settings_model.username} logged in')
-                self.logger.info(f"{settings_model.username} successfully logged in")
+            self.connector = Connector(username, password, config_values)
+            engine = self.connector.create_engine(self.connector.settings_model)
+            conn = self.connector.login(engine)
+            if conn:
+                self.master.status_bar.status_set(f'{self.connector.settings_model.username} logged in')
+                self.logger.info(f"{self.connector.settings_model.username} successfully logged in")
                 self.login_view.master_frame.destroy()
-                # Call HomePage Controller
-                MainPageController.MainPageController(self.master, self, self.layout, db_engine, settings_model, prof)
+                # Call MainPage Controller
+                MainPageController.MainPageController(self.master, self.controller, self.connector)
             else:
                 # Executes on failed login
-                self.logger.warning(f"{settings_model.username} FAILED login attempt")
+                self.logger.warning(f"{self.connector.settings_model.username} FAILED login attempt")
                 MessageBox.MessageBox().onWarn('Invalid Login Credentials')
-                self.layout.status_bar.status_set('Invalid Login Credentials')
+                self.master.status_bar.status_set('Invalid Login Credentials')
         except:
             # Executes if there are no values to pass or sqldb section is missing from conifg.ini
-            self.layout.status_bar.status_set('Unable to login. Check your configuration settings.')
+            self.master.status_bar.status_set('Unable to login. Check your configuration settings.')
             MessageBox.MessageBox().onInfo('Unable to login\nGo to Edit -> Settings and configure your database settings.')

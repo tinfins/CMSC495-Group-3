@@ -1,9 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 # Big Teacher module imports
-import big_teacher.src.controller.MainPageController as MainPageController
-import big_teacher.src.gui.SettingsGui as SettingsGui
-import big_teacher.src.gui.TopLevelWindow as TopLevelWindow
+import src.gui.SettingsGui as SettingsGui
+import src.gui.TopLevelWindow as TopLevelWindow
 
 
 class MenuBarGui(tk.Frame):
@@ -26,8 +25,6 @@ class MenuBarGui(tk.Frame):
         self.grid(row=0, column=0)
 
         # Filemenu entries
-        file_menu.add_command(label="Log Out", command=lambda: None)
-        file_menu.add_command(label="", command=None)
         file_menu.add_command(label="Close", command=lambda: controller.destroy())
 
         file_menu.add_separator()
@@ -36,7 +33,8 @@ class MenuBarGui(tk.Frame):
         menubar.add_cascade(label='File', menu=file_menu)
 
         # Edit_menu entries
-        edit_menu.add_command(label="Settings", command=lambda: TopLevelWindow.SwitchWindow(master=self.master).new_window(SettingsGui.SettingsGui))
+        edit_menu.add_command(label="Settings", command=lambda: TopLevelWindow.SwitchWindow(master=self.master).new_window(
+            SettingsGui.SettingsGui))
         menubar.add_cascade(label='Edit', menu=edit_menu)
 
 

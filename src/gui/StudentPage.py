@@ -7,7 +7,7 @@ class StudentPage(tk.Frame):
     '''
     Class creates Student Page frame.
     '''
-    def __init__(self, master, controller, content_frame):
+    def __init__(self, master, controller):
         '''
         Initialize Student page
         '''
@@ -15,11 +15,9 @@ class StudentPage(tk.Frame):
         self.logger = logging.getLogger(__name__)
         self.master = master
         self.controller = controller
-        self.content_frame = content_frame
-        self.master.title("Student Page")
 
         # Master frame for all widgets
-        self.master_frame = ttk.Frame(self.content_frame)
+        self.master_frame = ttk.Frame(self.master)
         # Frame for top window elements
         self.top_frame = ttk.Frame(self.master_frame)
         self.mid_frame = ttk.Frame(self.master_frame)

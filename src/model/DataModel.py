@@ -70,6 +70,7 @@ class SettingsModel:
     def db_name(self, db_name):
         self._db_name = db_name
 
+
 @dataclass(frozen=True)
 class StudentModel:
     '''
@@ -81,7 +82,8 @@ class StudentModel:
     student_id: int
     fname: str
     lname: str
-    
+
+
 @dataclass(frozen=True)
 class ProfessorModel:
     __slots__ = ['prof_id', 'prof_fname', 'prof_lname', 'prof_email']
@@ -90,6 +92,7 @@ class ProfessorModel:
     prof_lname: str
     prof_email: str
 
+
 @dataclass
 class CourseModel:
     course_id: int
@@ -97,29 +100,22 @@ class CourseModel:
     start_date: str
     end_date: str
 
+
 @dataclass
 class StudentToCourseModel:
     student_takes_id: int
     student_id: int
     course_id: int
 
+
 @dataclass
 class TeacherToCourse:
     prof_id: int
     course_id: int
+
 
 @dataclass
 class Assignments:
     student_takes_id: int
     test_1: int
     homework_1: int
-
-'''
-stu_model = StudentModel('1', 'Jay', 'White')
-#stu_model('1', 'Jay', 'White')
-print(stu_model._fname)
-print(stu_model.fname)
-stu_model.fname = 'Turd'
-print(stu_model.fname)
-#stu_model.set
-'''
