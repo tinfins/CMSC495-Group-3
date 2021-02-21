@@ -30,10 +30,10 @@ def main():
     :return:
     '''
     settings = Settings('config.ini')
-    check_dir = settings.check_log_dir('src/logs')
+    check_dir = settings.check_log_dir('src/logs/')
     check_settings = settings.check_log_config(settings.config_file)
     if not check_dir or not check_settings:
-        settings.create_log_settings(file='config.ini', directory='logs', dir_true=check_dir)
+        settings.create_log_settings(file='config.ini', directory='src/logs/', dir_true=check_dir)
         settings.write_config(settings.config)
     BigTeacher()
 

@@ -83,11 +83,11 @@ class MainPageController:
         # Dynamically set course combobox
         self.student_page.class_subject['values'] = self.df_query.get_classes()
         self.student_page.class_subject.current(0)
-        table1 = self.get_table(self.student_page.class_subject.get(), self.student_page.students_frame)
-        table2 = self.get_table(self.student_page.class_subject.get(), self.student_page.assignments_frame)
+        table1 = self.get_table(self.student_page.class_subject.get(), self.student_page.tree_student)
+        table2 = self.get_table(self.student_page.class_subject.get(), self.student_page.tree_assignments)
         # Combobox select event bind
         self.student_page.class_subject.bind('<<ComboboxSelected>>',
-                                             lambda event: (table1.close(), table2.close(), self.get_table(self.student_page.class_subject.get(), self.student_page.students_frame), self.get_table(self.student_page.class_subject.get(), self.student_page.assignments_frame)))
+                                             lambda event: (table1.destroy(), table2.destroy(), self.get_table(self.student_page.class_subject.get(), self.student_page.tree_student), self.get_table(self.student_page.class_subject.get(), self.student_page.tree_assignments)))
         return self.student_page
 
     def assignments_frame(self):
@@ -104,35 +104,44 @@ class MainPageController:
         # Dynamically set course combobox
         self.assignments_page.class_subject['values'] = self.df_query.get_classes()
         self.assignments_page.class_subject.current(0)
+        '''
         # Display table based on course selected
         table1 = self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.students_frame)
         table2 = self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.assignments_frame)
         # Combobox select event bind
+        
         self.assignments_page.class_subject.bind('<<ComboboxSelected>>',
                                              lambda event: (
                                              table1.close(), table2.close(), self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.students_frame), self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.assignments_frame)))
+                                             '''
         return self.assignments_page
 
     def get_table(self, course, frame):
         # Display students table based on course selected
-        students_table = self.df_query.get_students(course)
-        table1 = self.display_table(students_table, frame)
+        students_table = self.df_query.get_students_df(course)
+        tree = self.display_tree(students_table, frame)
         # Display assignments table based on course selected
         #assignments_table = self.df_query.get_students(course, self.df)
         #table2 = self.display_table(assignments_table, self.student_page.assignments_frame)
-        return table1
+        return tree
 
-    def display_table(self, data_table, frame):
+    def display_tree(self, data_table, tree):
         '''
         Display table in pandastable tk widget
         :param data_table:pandas data frame
         :param frame:tkFrame to display pandastable widget
         '''
-        pt = Table(frame, dataframe=data_table, showtoolbar=False)
-        options = {'fontsize': 8}
-        config.apply_options(options, pt)
-        pt.show()
-        return pt
+        cols = list(data_table.columns)
+        tree['columns'] = cols
+        for i in cols:
+            tree.column(i, anchor="w")
+            tree.heading(i, text=i, anchor='w')
+
+        for index, row in data_table.iterrows():
+            tree.insert("",0,text=index,values=list(row))
+            tree['show'] = 'headings'
+        
+        return tree
 
     def close_window(self):
         self.main_page.master_frame.destroy()

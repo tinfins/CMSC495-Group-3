@@ -30,13 +30,14 @@ class DataframeQueries:
             course_names.append(course)
         return tuple(classes)
 
-    def get_students(self, course):
+    def get_students_df(self, course):
         '''
         :param course:
         :param df:pandas dataframe
         :return:dataframe of student name
         '''
-        self.df_students = self.df.loc[self.df['course_name'] == course][['student_lname', 'student_fname']]
+        self.df['name'] = self.df.student_lname.str.cat(self.df.student_fname, sep=', ')
+        self.df_students = self.df.loc[self.df['course_name'] == course][['name']]
         return self.df_students
 
     def get_assignments(self, course, df):
