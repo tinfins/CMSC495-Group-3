@@ -83,11 +83,12 @@ class MainPageController:
         # Dynamically set course combobox
         self.student_page.class_subject['values'] = self.df_query.get_classes()
         self.student_page.class_subject.current(0)
-        table1 = self.get_table(self.student_page.class_subject.get(), self.student_page.tree_student)
-        table2 = self.get_table(self.student_page.class_subject.get(), self.student_page.tree_assignments)
+        table1 = self.get_table(self.student_page.class_subject.get(), self.student_page.tree_student, 's')
+        table1.bind('<<TreeviewSelect>>', lambda event: self.tree_select(table1))
+        #table2 = self.get_table(self.student_page.class_subject.get(), self.student_page.tree_assignments, 'a', table1.item(t1_focus)['text'])
         # Combobox select event bind
         self.student_page.class_subject.bind('<<ComboboxSelected>>',
-                                             lambda event: (table1.destroy(), table2.destroy(), self.get_table(self.student_page.class_subject.get(), self.student_page.tree_student), self.get_table(self.student_page.class_subject.get(), self.student_page.tree_assignments)))
+                                             lambda event: (self.destroy_child_widgets(table1), self.get_table(self.student_page.class_subject.get(), self.student_page.tree_student, 's')))
         return self.student_page
 
     def assignments_frame(self):
@@ -116,16 +117,16 @@ class MainPageController:
                                              '''
         return self.assignments_page
 
-    def get_table(self, course, frame):
+    def get_table(self, course, frame, f_type, index=None):
         # Display students table based on course selected
-        students_table = self.df_query.get_students_df(course)
-        tree = self.display_tree(students_table, frame)
-        # Display assignments table based on course selected
-        #assignments_table = self.df_query.get_students(course, self.df)
-        #table2 = self.display_table(assignments_table, self.student_page.assignments_frame)
+        if f_type == 's':
+            table = self.df_query.get_students_df(course)
+        if f_type == 'a':
+            table = self.df_query.get_assignments(index)
+        tree = self.display_tree(table, frame, f_type)
         return tree
 
-    def display_tree(self, data_table, tree):
+    def display_tree(self, data_table, tree, f_type):
         '''
         Display table in pandastable tk widget
         :param data_table:pandas data frame
@@ -136,12 +137,19 @@ class MainPageController:
         for i in cols:
             tree.column(i, anchor="w")
             tree.heading(i, text=i, anchor='w')
-
         for index, row in data_table.iterrows():
             tree.insert("",0,text=index,values=list(row))
-            tree['show'] = 'headings'
-        
+        tree['show'] = 'headings'
         return tree
+    
+    def tree_select(self, tree):
+        cur_item = tree.focus()
+        index = tree.item(cur_item)['text']
+        print(index)
+        table2 = self.get_table(self.student_page.class_subject.get(), self.student_page.tree_assignments, 'a', index)
+        return table2
+        
+        #print(tree.item(cur_item['text']))
 
     def close_window(self):
         self.main_page.master_frame.destroy()

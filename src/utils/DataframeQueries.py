@@ -40,9 +40,26 @@ class DataframeQueries:
         self.df_students = self.df.loc[self.df['course_name'] == course][['name']]
         return self.df_students
 
-    def get_assignments(self, course, df):
-        data_table = self.df.loc[self.df['course_name'] == course][['student_lname', 'student_fname', 'course_name']]
-        return data_table
+    def get_assignments(self, index=None):
+        # Combine last_name, first_name to Name
+        self.df['Name'] = self.df.student_lname.str.cat(self.df.student_fname, sep=', ')
+        # Fine total amount of columns in df
+        length = len(self.df.columns)
+        # Slice df to keep col 9 and up
+        df1 = self.df.iloc[:, 9:length].copy()
+        # Rename columns
+        for name in df1.columns:
+            new_name = name.replace('_', ' ').capitalize()
+            df1.rename({name: new_name}, axis=1, inplace=True)
+            # Transpose table for cols as index
+        df1T = df1.set_index('Name').T
+        if index:
+            df1T.insert(loc=0, column='Assignments', value=df1T.index)
+            df2 = df1T.iloc[:, [0, index]]
+            return df2.sort_index(ascending=True)
+        else:
+            df2 = df1T
+            return df2.sort_index(ascending=True)
 
 
 if __name__ == '__main__':

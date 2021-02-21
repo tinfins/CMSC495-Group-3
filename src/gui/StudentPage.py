@@ -50,12 +50,9 @@ class StudentPage(tk.Frame):
             # Configuring treeview 
             treev.configure(xscrollcommand = verscrlbar.set)
             return treev
-
         
         self.tree_student = create_treeview(self.students_frame)
         self.tree_assignments = create_treeview(self.assignments_frame)
 
         classes_label.pack(side=tk.LEFT, padx=25, pady=10)
         self.class_subject.pack()
-        #self.tree_student.pack()
-        #self.tree_assignments.pack()
