@@ -29,12 +29,32 @@ class AssignmentsPage(tk.Frame):
         self.top_frame.pack(side=tk.TOP)
         self.mid_frame.pack(side=tk.TOP)
         self.content_frame.pack()
-        self.students_frame.pack(side=tk.LEFT, padx=10, pady=10)
-        self.assignments_frame.pack(side=tk.RIGHT, padx=10, pady=10)
+        self.students_frame.pack(side=tk.RIGHT, padx=10, pady=10)
+        self.assignments_frame.pack(side=tk.LEFT, padx=10, pady=10)
 
         classes_label = ttk.Label(self.top_frame, text='Classes:')
         self.class_value = tk.StringVar()
         self.class_subject = ttk.Combobox(self.top_frame, textvariable=self.class_value, state='readonly')
+
+        #this seems to create the table widgets themselves
+        def create_treeview(frame):
+            # Using treeview widget
+            treev = ttk.Treeview(frame, selectmode='browse')
+            # Calling pack method w.r.to treeview
+            treev.pack(side='right')
+            # Constructing vertical scrollbar
+            # with treeview
+            verscrlbar = ttk.Scrollbar(frame, orient="vertical", command=treev.yview)
+            # Calling pack method w.r.to verical
+            # scrollbar
+            verscrlbar.pack(side='right', fill='x')
+            # Configuring treeview
+            treev.configure(xscrollcommand=verscrlbar.set)
+            return treev
+
+
+        self.tree_assignments = create_treeview(self.assignments_frame)
+        self.tree_student = create_treeview(self.students_frame)
 
         classes_label.pack(side=tk.LEFT, padx=25, pady=10)
         self.class_subject.pack()

@@ -61,6 +61,19 @@ class DataframeQueries:
             df2 = df1T.iloc[:, 0:1]
             return df2.sort_index(ascending=True)
 
+'''
+    def try_assignments(self, index=None):
+        # Fine total amount of columns in df
+        length = len(self.df.columns)
+        # Slice df to keep col 9 and up
+        df1 = self.df.iloc[:, 9:length].copy()
+        # Rename columns
+        for name in df1.columns:
+            new_name = name.replace('_', ' ').capitalize()
+            df1.rename({name: new_name}, axis=1, inplace=True)
+            # Transpose table for cols as index
+'''
+
 
 if __name__ == '__main__':
     # Uncomment when query by professor
