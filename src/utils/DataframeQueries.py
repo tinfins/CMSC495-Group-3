@@ -16,8 +16,10 @@ class DataframeQueries:
         self.df_students = None
 
     def create_dataframe(self, result):
-        self.df = pd.DataFrame(result)
-        self.df.columns = result[0].keys()
+        # Offline Testing
+        self.df = pd.read_csv(result)
+        #self.df = pd.DataFrame(result)
+        #self.df.columns = result[0].keys()
         return self.df
 
     def get_classes(self):

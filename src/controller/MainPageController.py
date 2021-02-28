@@ -1,5 +1,4 @@
 import logging.config
-from pandastable import Table, config
 # Big Teacher module imports
 import src.gui.MainPage as MainPage
 from src.utils.DatabaseQuery import DatabaseQuery
@@ -7,6 +6,8 @@ from src.utils.DataframeQueries import DataframeQueries
 from src.gui.HomePage import HomePage
 from src.gui.StudentPage import StudentPage
 from src.gui.AssignmentsPage import AssignmentsPage
+# Offline Testing
+from src.model.DataModel import ProfessorModel
 
 
 class MainPageController:
@@ -14,7 +15,9 @@ class MainPageController:
     HomePage controller for application
     '''
 
-    def __init__(self, master, controller, connector):
+    def __init__(self, master, controller):
+                 # Offline testing
+                 #, connector):
         '''
         Initializes HomePageController and displays HomePage gui
         :params master:tk.Tk():master window
@@ -27,7 +30,8 @@ class MainPageController:
         self.logger = logging.getLogger(__name__)
         self.master = master
         self.controller = controller
-        self.connector = connector
+        # Offline Testing
+        #self.connector = connector
         self.db_query = None
         self.df_query = None
         self.main_page = self.main_frame()
@@ -41,10 +45,14 @@ class MainPageController:
         Displays MainPage
         :return:tk.Frame:MainPage
         '''
-        self.db_query = DatabaseQuery(self.connector.engine)
+        # Offline Testing
+        result = 'data-export.csv'
+        #self.db_query = DatabaseQuery(self.connector.engine)
         self.df_query = DataframeQueries()
-        prof_obj = self.db_query.get_prof(self.connector.settings_model)
-        result = self.db_query.get_data(prof_obj)
+        # Offline Testing
+        prof_obj = ProfessorModel(1, 'Jay', 'White', 'jwhite@umgc.edu')
+        #prof_obj = self.db_query.get_prof(self.connector.settings_model)
+        #result = self.db_query.get_data(prof_obj)
         self.df = self.df_query.create_dataframe(result)
         self.main_page = MainPage.MainPage(self.master, self)
         # Set home button command
@@ -85,7 +93,6 @@ class MainPageController:
         self.student_page.class_subject.current(0)
         table1 = self.get_table(self.student_page.class_subject.get(), self.student_page.tree_student, 's')
         table1.bind('<<TreeviewSelect>>', lambda event: self.tree_select(table1))
-        #table2 = self.get_table(self.student_page.class_subject.get(), self.student_page.tree_assignments, 'a', table1.item(t1_focus)['text'])
         # Combobox select event bind
         self.student_page.class_subject.bind('<<ComboboxSelected>>',
                                              lambda event: (self.destroy_child_widgets(table1), self.get_table(self.student_page.class_subject.get(), self.student_page.tree_student, 's')))
@@ -132,6 +139,7 @@ class MainPageController:
         :param data_table:pandas data frame
         :param frame:tkFrame to display pandastable widget
         '''
+        tree.delete(*tree.get_children())
         cols = list(data_table.columns)
         tree['columns'] = cols
         for i in cols:
@@ -144,12 +152,10 @@ class MainPageController:
     
     def tree_select(self, tree):
         cur_item = tree.focus()
-        index = tree.item(cur_item)['text']
-        print(index)
+        index = (tree.item(cur_item)['text'])+1
+        index = int(index)
         table2 = self.get_table(self.student_page.class_subject.get(), self.student_page.tree_assignments, 'a', index)
         return table2
-        
-        #print(tree.item(cur_item['text']))
 
     def close_window(self):
         self.main_page.master_frame.destroy()
