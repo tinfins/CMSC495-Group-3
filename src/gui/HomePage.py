@@ -45,22 +45,22 @@ class HomePage(tk.Frame):
 
         # Create images and associated labels
         # Students image
-        img1 = ImageTk.PhotoImage(Image.open("src/assets/Students.png").resize((250, 300), Image.ANTIALIAS))
+        img1 = ImageTk.PhotoImage(Image.open("src/assets/Students.png").resize((150, 200), Image.ANTIALIAS))
         self.img_panel1 = ttk.Label(self.top_content_frame, image=img1)
         self.img_panel1.image = img1
 
         # Logo image
-        img2 = ImageTk.PhotoImage(Image.open("src/assets/Logo.png").resize((250, 300), Image.ANTIALIAS))
+        img2 = ImageTk.PhotoImage(Image.open("src/assets/Logo.png").resize((150, 200), Image.ANTIALIAS))
         self.img_panel2 = ttk.Label(self.top_content_frame, image=img2)
         self.img_panel2.image = img2
 
         # Assignments image
-        img3 = ImageTk.PhotoImage(Image.open("src/assets/Assignments.png").resize((250, 300), Image.ANTIALIAS))
+        img3 = ImageTk.PhotoImage(Image.open("src/assets/Assignments.png").resize((150, 200), Image.ANTIALIAS))
         self.img_panel3 = ttk.Label(self.bottom_content_frame, image=img3)
         self.img_panel3.image = img3
 
         # Analysis image
-        img4 = ImageTk.PhotoImage(Image.open("src/assets/Analysis.png").resize((250, 300), Image.ANTIALIAS))
+        img4 = ImageTk.PhotoImage(Image.open("src/assets/Analysis.png").resize((150, 200), Image.ANTIALIAS))
         self.img_panel4 = ttk.Label(self.bottom_content_frame, image=img4)
         self.img_panel4.image = img4
 
