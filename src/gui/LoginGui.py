@@ -1,6 +1,7 @@
 import logging.config
 import tkinter as tk
 from tkinter import ttk
+from PIL import ImageTk, Image
 
 
 class LoginGui(tk.Frame):
@@ -34,9 +35,13 @@ class LoginGui(tk.Frame):
         spacer2.pack(side=tk.RIGHT)
         mid_frame.pack()
         bottom_frame.pack()
+        
+        img1 = ImageTk.PhotoImage(Image.open("src/assets/Logo.png").resize((80, 100), Image.ANTIALIAS))
+        img_panel1 = ttk.Label(top_frame, image=img1)
+        img_panel1.image = img1
 
         # Welcome Label
-        info_label = ttk.Label(top_frame, text='Welcome to Big Teacher!', justify='center', font=(None, 25))
+        info_label = ttk.Label(top_frame, text='Welcome to Big Teacher!', justify='center', font=(None, 16))
 
         # Username label and entry
         username_label = ttk.Label(mid_frame, text='Username')
@@ -55,7 +60,8 @@ class LoginGui(tk.Frame):
 
         # Pack GUI
         # Info Label packed in top_frame
-        info_label.pack(padx=5, pady=35)
+        info_label.pack(side=tk.LEFT, padx=25, pady=35)
+        img_panel1.pack(side=tk.RIGHT, padx=25)
         # Grid layout for mid_frame
         username_label.grid(row=0, column=0, sticky='e', padx=10, pady=5)
         username_entry.grid(row=0, column=1, sticky='w', padx=10, pady=5)
