@@ -1,6 +1,7 @@
 import logging.config
 import tkinter as tk
 from tkinter import ttk
+from PIL import ImageTk, Image
 
 
 class MainPage(tk.Frame):
@@ -33,6 +34,11 @@ class MainPage(tk.Frame):
         self.view_label_frame.pack(padx=75, pady=10)
         self.content_frame.pack(side=tk.TOP, fill=tk.BOTH)
         self.bottom_frame.pack(side=tk.BOTTOM)
+        
+        # Logo on MainPage
+        img1 = ImageTk.PhotoImage(Image.open("src/assets/Logo.png").resize((80, 100), Image.ANTIALIAS))
+        img_panel1 = ttk.Label(self.top_frame, image=img1)
+        img_panel1.image = img1
 
         # Welcome label
         self.welcome_label = ttk.Label(self.top_frame)
@@ -42,6 +48,9 @@ class MainPage(tk.Frame):
 
         # Logout button
         self.logout_button = ttk.Button(self.bottom_frame, text='Logout')
+        
+        # Pack logo
+        img_panel1.pack(side=tk.LEFT, padx=25, pady=25)
 
         # Pack frames with widgets
         self.welcome_label.pack(side=tk.LEFT, padx=25, pady=10)
