@@ -30,7 +30,7 @@ class DataframeQueries:
             course_names.append(course)
         return tuple(classes)
 
-    def get_students_df(self, course, index=None):
+    def get_students_df(self, course):
         '''
         :param course:
         :param df:pandas dataframe
@@ -40,7 +40,7 @@ class DataframeQueries:
         self.df_students = self.df.loc[self.df['course_name'] == course][['Name']]
         return self.df_students
 
-    def get_assignments(self, index=None):
+    def get_assignments(self, index=None, tree_type=None, course=None):
         # Combine last_name, first_name to Name
         self.df['Name'] = self.df.student_lname.str.cat(self.df.student_fname, sep=', ')
         # Fine total amount of columns in df
@@ -53,13 +53,28 @@ class DataframeQueries:
             df1.rename({name: new_name}, axis=1, inplace=True)
             # Transpose table for cols as index
         df1T = df1.set_index('Name').T
-        if index:
-            df1T.insert(loc=0, column='Assignments', value=df1T.index)
-            df2 = df1T.iloc[:, [0, index]]
+        df1T.insert(loc=0, column='Assignments', value=df1T.index)
+        df2 = df1T.sort_index(ascending=True).reset_index(level=0, drop=True)
+        if isinstance(index, type(0)):
+            df2 = df2.iloc[:, [0, index]]
             return df2.sort_index(ascending=True)
+        elif tree_type == 'asgn':
+            df2 = df2.iloc[:, 0:length]
+            return df2.sort_index(ascending=True)
+        elif tree_type == 'ind':
+            df2 = df2.iloc[:, 0:1]
+            return df2.sort_index(ascending=True)
+        elif index is None and tree_type is None:
+            df2 = pd.DataFrame()
+            return df2.sort_index(ascending=True)
+
+    def assignments_index(self, dfT, index=None):
+        if isinstance(index, type(0)):
+            df2 = dfT.iloc[:, [0, index]]
         else:
-            df2 = df1T.iloc[:, 0:1]
-            return df2.sort_index(ascending=True)
+            length = len(dfT.columns)
+            df2 = dfT.iloc[:, 0:length]
+        return df2
 
 '''
     def try_assignments(self, index=None):
@@ -73,14 +88,3 @@ class DataframeQueries:
             df1.rename({name: new_name}, axis=1, inplace=True)
             # Transpose table for cols as index
 '''
-
-
-if __name__ == '__main__':
-    # Uncomment when query by professor
-    dataf = pd.read_csv('data-export.csv', header=0)
-    # Uncomment when full data query
-    # dataf = pd.read_csv('full-data-export.csv', header=0)
-    dframe = DataframeQueries(dataf)
-    dframe.student_name(dframe.df)
-    print(dframe.df)
-    print(dframe.df_students)

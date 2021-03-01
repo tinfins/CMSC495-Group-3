@@ -18,7 +18,9 @@ Python 3.7
 - SQLAlchemy==1.3.23
 - ttkthemes==3.2.0
 - pandas==1.2.2
-- future==0.18.2
+- matplotlib==3.3.4
+- plotly==4.14.3
+- numpy==1.20.1
   
 (See requirements.txt file for most up to date dependencies)
 

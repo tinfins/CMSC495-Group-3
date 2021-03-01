@@ -23,7 +23,7 @@ class StudentPage(tk.Frame):
         self.mid_frame = ttk.Frame(self.master_frame)
         self.content_frame = ttk.Frame(self.master_frame)
         self.students_frame = ttk.Frame(self.content_frame)
-        self.assignments_frame = ttk.Frame(self.content_frame)
+        self.assignments_frame = ttk.Frame(self.content_frame, width=350, height=350)
 
         self.master_frame.pack()
         self.top_frame.pack(side=tk.TOP)
@@ -31,6 +31,7 @@ class StudentPage(tk.Frame):
         self.content_frame.pack()
         self.students_frame.pack(side=tk.LEFT, padx=10, pady=10)
         self.assignments_frame.pack(side=tk.RIGHT, padx=10, pady=10)
+        self.assignments_frame.pack_propagate(False)
 
         classes_label = ttk.Label(self.top_frame, text='Classes:')
         self.class_value = tk.StringVar()

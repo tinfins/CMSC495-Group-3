@@ -83,7 +83,5 @@ class DatabaseQuery:
                 p, ttc.c.professor_id == p.c.professor_id).join(t, stc.c.student_takes_id == t.c.student_takes_id))
         with self.engine.connect() as conn:
             result = conn.execute(student_course).fetchall()
-        #self.df = pd.DataFrame(result)
-        #self.df.columns = result[0].keys()
         self.logger.info('Data successfully retrieved')
         return result
