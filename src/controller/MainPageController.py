@@ -105,8 +105,9 @@ class MainPageController:
         # Dynamically set course combobox
         self.assignments_page.class_subject['values'] = self.df_query.get_classes()
         self.assignments_page.class_subject.current(0)
-        '''
-        # Display table based on course selected
+        table1 = self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.tree_assignments, 'a')# "l"
+
+        '''# Display table based on course selected
         table1 = self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.students_frame)
         table2 = self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.assignments_frame)
         # Combobox select event bind
@@ -123,8 +124,15 @@ class MainPageController:
             table = self.df_query.get_students_df(course)
         if f_type == 'a':
             table = self.df_query.get_assignments(index)
+        '''
+        if f_type == 'l':
+            table = self.df_query.try_assignments(index)
+        '''
         tree = self.display_tree(table, frame, f_type)
+
         return tree
+
+
 
     def display_tree(self, data_table, tree, f_type):
         '''
