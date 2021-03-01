@@ -1,10 +1,24 @@
 # CMSC 495 Capstone Project
 ## Overview
-TODO:
+Big Teacher aims to provide educators with a unified solution for viewing student performance data. Big Teacher is a front-end Graphical User Interface (GUI) that will be capable of retrieving and displaying student data from existing databases.
 
 ## Getting Started
 ### Installation
-TODO: 
+- Install Python 3.7.1 or higher
+- Clone github repository
+  - All Platforms: git clone https://github.com/tinfins/CMSC495-Group-3
+- Install virtualenv
+  - All platforms: pip install virtualenv
+- Create a Python virtual environment
+  - Windows: virtualenv --python C:\Path\To\Python\python.exe venv
+  - OSX/Linux: virtualenv venv
+- Activate your virtual environment
+  - Windows: .\venv\Scripts\activate
+  - OSX/Linux: source venv/bin/activate
+- Install required dependencies
+  - All Platforms: pip3 install -r requirements.txt
+  - If updating: pip install -r requirements.txt --upgrade
+*Note* If you are using MacOS or Linux, ensure you have tkinter installed before installing dependencies from requirements.
 
 ## For Developers:
 For Developers interested in using our application as a base to building their own app or for learning purposes, please see our [LICENSE](https://github.com/tinfins/CMSC495-Group-3/blob/master/LICENSE).
@@ -25,7 +39,7 @@ Python 3.7
 (See requirements.txt file for most up to date dependencies)
 
 ### Development Setup
-- Install Python 3.7 or higher
+- Install Python 3.7.1 or higher
 - Clone github repository
   - All Platforms: git clone https://github.com/tinfins/CMSC495-Group-3
 - Install virtualenv
@@ -39,12 +53,14 @@ Python 3.7
 - Install required dependencies
   - All Platforms: pip3 install -r requirements.txt
   - If updating: pip install -r requirements.txt --upgrade
+*Note* If you are using MacOS or Linux, ensure you have tkinter installed before installing dependencies from requirements.
 
 ## Running tests
-TODO:
+Execute the 'Runner.py' file within the parent directory (preferably from your IDE)
 
 ## Built With
-TODO:
+- [PyCharm](https://www.jetbrains.com/pycharm/) for Python development
+- [AWS RDS](https://aws.amazon.com/rds/) for remote database services
 
 ## Team
 - [James Horne](https://github.com/jmhorne) (Project Manager)
