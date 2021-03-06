@@ -7,8 +7,8 @@ from src.gui.HomePage import HomePage
 from src.gui.StudentPage import StudentPage
 from src.gui.AssignmentsPage import AssignmentsPage
 from src.gui.AnalysisPage import AnalysisPage
-# Offlibe testing
-#from src.model.DataModel import ProfessorModel
+# Offline testing
+from src.model.DataModel import ProfessorModel
 
 
 class MainPageController:
@@ -29,7 +29,6 @@ class MainPageController:
         self.logger = logging.getLogger(__name__)
         self.master = master
         self.controller = controller
-        # Offline testing
         self.connector = connector
         self.db_query = None
         self.df_query = None
@@ -47,13 +46,9 @@ class MainPageController:
         Displays MainPage
         :return:tk.Frame:MainPage
         '''
-        # Offline testing
         self.db_query = DatabaseQuery(self.connector.engine)
         self.df_query = DataframeQueries()
         prof_obj = self.db_query.get_prof(self.connector.settings_model)
-        # Offline testing
-        #prof_obj = ProfessorModel(1, 'Jay', 'White', 'jwhite@umgc.edu')
-        #result = 'data-export.csv'
         result = self.db_query.get_data(prof_obj)
         self.df = self.df_query.create_dataframe(result)
         self.main_page = MainPage.MainPage(self.master, self)
@@ -98,7 +93,7 @@ class MainPageController:
         table1.bind('<<TreeviewSelect>>', lambda event: (self.tree_select(table1), self.get_table(self.student_page.class_subject.get(), self.student_page.tree_assignments, 'a', self.index, "grades")))
         # Combobox select event bind
         self.student_page.class_subject.bind('<<ComboboxSelected>>',
-                                             lambda event: (self.destroy_child_widgets(table1), self.destroy_child_widgets(self.student_page.tree_assignments), self.get_table(self.student_page.class_subject.get(), self.student_page.tree_student, 's')))
+                                             lambda event: (self.destroy_child_widgets(table1), self.get_table(self.student_page.class_subject.get(), self.student_page.tree_student, 's')))
         return self.student_page
 
     def assignments_frame(self):
@@ -139,6 +134,9 @@ class MainPageController:
         table1 = self.get_table(self.analysis_page.class_subject.get(), self.analysis_page.tree_student, 's')
         table2 = self.get_table(self.analysis_page.class_subject.get(), self.analysis_page.tree_assignments, 'a',
                                 None, 'ind')
+        table1.bind('<<TreeviewSelect>>', lambda event: (self.tree_select(table1), self.chart_plot(self.analysis_page.class_subject.get(), 'grades', self.analysis_page.radio_selection.get(), self.index)))
+        table2.bind('<<TreeviewSelect>>', lambda event: (self.tree_select(table2), self.chart_plot(self.analysis_page.class_subject.get(), 'asgn', self.analysis_page.radio_selection.get(), self.index)))
+        self.analysis_page.class_subject.bind('<<ComboboxSelected>>', lambda event: (self.destroy_child_widgets(table1), self.destroy_child_widgets(table2), self.get_table(self.analysis_page.class_subject.get(), self.analysis_page.tree_student, 's'), self.get_table(self.analysis_page.class_subject.get(), self.analysis_page.tree_assignments, 'a', None, 'ind')))
         return self.analysis_page
 
     def get_table(self, course, frame, f_type, index=None, asgn_type=None):
@@ -192,6 +190,16 @@ class MainPageController:
             self.index = int(self.index+1)
         self.cur_item = cur_item
         return self.index
+
+    def chart_plot(self, course, asgn_type, chart_type, index=None):
+        self.destroy_child_widgets(self.analysis_page.graph_frame)
+        if asgn_type == 'grades':
+            data_frame = self.df_query.get_grades(course, index)
+            self.analysis_page.plot_line(self.analysis_page.graph_frame, asgn_type, data_frame, chart_type, index)
+        elif asgn_type == "asgn":
+            data_frame = self.df_query.get_assignments_name(course, index)
+            self.analysis_page.plot_line(self.analysis_page.graph_frame, asgn_type, data_frame, chart_type, index)
+
 
     def close_window(self):
         self.main_page.master_frame.destroy()

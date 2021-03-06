@@ -44,8 +44,6 @@ class LoginController:
         # Read settings from config.ini file
         settings = Settings('config.ini')
         config_values = settings.db_config_read('sqldb')
-        # Offline testing
-
         try:
             # Create engine
             self.connector = Connector(username, password, config_values)

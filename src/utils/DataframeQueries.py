@@ -16,7 +16,6 @@ class DataframeQueries:
         self.df_students = None
 
     def create_dataframe(self, result):
-        #self.df = pd.read_csv(result)
         self.df = pd.DataFrame(result)
         self.df.columns = result[0].keys()
         return self.df
@@ -96,3 +95,5 @@ class DataframeQueries:
         df2 = df1T.sort_index(ascending=True).reset_index(level=0, drop=True)
         df2 = df2.loc[:, ['Assignments', index]]
         return df2.sort_index(ascending=False)
+
+    #def student_grade_plot(self, course, index):
