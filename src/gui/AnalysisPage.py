@@ -109,15 +109,13 @@ class AnalysisPage(tk.Frame):
     def plot_line(self, frame, asgn_type, data_frame, chart_type, index):
         # the figure that will contain the plot
         fig = plt.Figure(figsize=(3.5, 3.5), dpi=100)
-
         # adding the subplot
-        ax1 = fig.add_subplot(111)
+        ax = fig.add_subplot(111)
         if asgn_type == 'grades':
-            plot = data_frame.plot(x='Assignments', y=index, ax=ax1, kind=chart_type)
+            plot = data_frame.plot(x='Assignments', y=index, ax=ax, kind=chart_type)
         elif asgn_type == 'asgn':
-            plot = data_frame.plot(x='Name', y=index, ax=ax1, kind=chart_type)
+            plot = data_frame.plot(x='Name', y=index, ax=ax, kind=chart_type)
         plt.xticks(rotation=90)
-        plt.show()
         # creating the Tkinter canvas
         # containing the Matplotlib figure
         canvas = FigureCanvasTkAgg(fig, master=frame)
