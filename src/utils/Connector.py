@@ -21,7 +21,6 @@ class Connector:
     '''
     Controller for user credentialing and queries
     '''
-
     def __init__(self, username, password, config_values):
         '''
         Initializes DB Connector
@@ -53,6 +52,7 @@ class Connector:
         # SQLAlchemy Engine is used to connect to db and perform all queries
         self.engine = db.create_engine(
             f"{dialect}+{driver}://{settings_obj.username}:{settings_obj.password}@{settings_obj.host}:{settings_obj.port}/{settings_obj.db_name}")
+        self.logger.info('SqlAlchemy engine created')
         return self.engine
 
     def login(self, engine):
@@ -62,5 +62,8 @@ class Connector:
         try:
             with engine.connect() as self.conn:
                 return True
-        except (db.exc.OperationalError, RuntimeError):
+        except db.exc.OperationalError as e:
+            self.logger.error(e)
+        except RuntimeError as e:
+            self.logger.error(e)
             return False

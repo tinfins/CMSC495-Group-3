@@ -1,13 +1,14 @@
 import logging.config
 # Big Teacher module imports
 import src.gui.MainPage as MainPage
-from src.model.DataModel import ProfessorModel
 from src.utils.DatabaseQuery import DatabaseQuery
 from src.utils.DataframeQueries import DataframeQueries
 from src.gui.HomePage import HomePage
 from src.gui.StudentPage import StudentPage
 from src.gui.AssignmentsPage import AssignmentsPage
 from src.gui.AnalysisPage import AnalysisPage
+# Offlibe testing
+#from src.model.DataModel import ProfessorModel
 
 
 class MainPageController:
@@ -28,6 +29,7 @@ class MainPageController:
         self.logger = logging.getLogger(__name__)
         self.master = master
         self.controller = controller
+        # Offline testing
         self.connector = connector
         self.db_query = None
         self.df_query = None
@@ -45,9 +47,13 @@ class MainPageController:
         Displays MainPage
         :return:tk.Frame:MainPage
         '''
+        # Offline testing
         self.db_query = DatabaseQuery(self.connector.engine)
         self.df_query = DataframeQueries()
         prof_obj = self.db_query.get_prof(self.connector.settings_model)
+        # Offline testing
+        #prof_obj = ProfessorModel(1, 'Jay', 'White', 'jwhite@umgc.edu')
+        #result = 'data-export.csv'
         result = self.db_query.get_data(prof_obj)
         self.df = self.df_query.create_dataframe(result)
         self.main_page = MainPage.MainPage(self.master, self)
@@ -89,10 +95,10 @@ class MainPageController:
         self.student_page.class_subject['values'] = self.df_query.get_classes()
         self.student_page.class_subject.current(0)
         table1 = self.get_table(self.student_page.class_subject.get(), self.student_page.tree_student, 's')
-        table1.bind('<<TreeviewSelect>>', lambda event: (self.tree_select(table1), self.get_table(self.student_page.class_subject.get(), self.student_page.tree_assignments, 'a', self.index, None)))
+        table1.bind('<<TreeviewSelect>>', lambda event: (self.tree_select(table1), self.get_table(self.student_page.class_subject.get(), self.student_page.tree_assignments, 'a', self.index, "grades")))
         # Combobox select event bind
         self.student_page.class_subject.bind('<<ComboboxSelected>>',
-                                             lambda event: (self.destroy_child_widgets(table1), self.get_table(self.student_page.class_subject.get(), self.student_page.tree_student, 's')))
+                                             lambda event: (self.destroy_child_widgets(table1), self.destroy_child_widgets(self.student_page.tree_assignments), self.get_table(self.student_page.class_subject.get(), self.student_page.tree_student, 's')))
         return self.student_page
 
     def assignments_frame(self):
@@ -111,9 +117,8 @@ class MainPageController:
         self.assignments_page.class_subject['values'] = self.df_query.get_classes()
         self.assignments_page.class_subject.current(0)
         table1 = self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.tree_assignments, 'a', None, 'ind')
-        table2 = self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.tree_student, 'a', None, 'asgn')
-        table1.bind('<<TreeviewSelect>>', lambda event: (self.tree_select(table1), table2.selection_set(self.cur_item)))
-        self.assignments_page.class_subject.bind('<<ComboboxSelected>>', lambda event: None)
+        table1.bind('<<TreeviewSelect>>', lambda event: (self.tree_select(table1), self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.tree_student, 'a', self.index, "asgn")))
+        self.assignments_page.class_subject.bind('<<ComboboxSelected>>', lambda event: (self.destroy_child_widgets(table1), self.get_table(self.assignments_page.class_subject.get(), self.assignments_page.tree_assignments, 'a', None, "ind")))
         return self.assignments_page
 
     def analysis_frame(self):
@@ -136,25 +141,37 @@ class MainPageController:
                                 None, 'ind')
         return self.analysis_page
 
-    def get_table(self, course, frame, f_type, index=None, tree_type=None):
+    def get_table(self, course, frame, f_type, index=None, asgn_type=None):
+        '''
+        Uses DataframeQueries to get requested table
+        :param course: Course name from combobox
+        :param frame: tk.Frame to display treeview in
+        :param f_type: Type of data frame requested
+        :param index: Index from treeview select
+        :param tree_type: Type of data frame requested
+        :return: tree for treeview
+        '''
         # Display students table based on course selected
+        table = None
         if f_type == 's':
             table = self.df_query.get_students_df(course)
         if f_type == 'a':
-            table = self.df_query.get_assignments(index, tree_type, course)
-        '''
-        if f_type == 'l':
-            table = self.df_query.try_assignments(index)
-        '''
+            if asgn_type == 'ind':
+                table = self.df_query.get_assignments_index(course)
+            elif asgn_type == 'asgn':
+                table = self.df_query.get_assignments_name(course, index)
+            elif asgn_type == 'grades':
+                table = self.df_query.get_grades(course, index)
         tree = self.display_tree(table, frame)
 
         return tree
 
     def display_tree(self, data_table, tree):
         '''
-        Display table in pandastable tk widget
+        Display table in treeview widget
         :param data_table:pandas data frame
-        :param frame:tkFrame to display pandastable widget
+        :param tree: treeview frame
+        :return: treeview for display in widget
         '''
         tree.delete(*tree.get_children())
         cols = list(data_table.columns)
@@ -169,7 +186,8 @@ class MainPageController:
     
     def tree_select(self, tree):
         cur_item = tree.focus()
-        self.index = tree.item(cur_item)['text']
+        string1 = tree.item(cur_item)['values']
+        self.index = ''.join(string1)
         if isinstance(self.index, type(0)):
             self.index = int(self.index+1)
         self.cur_item = cur_item

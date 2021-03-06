@@ -44,6 +44,8 @@ class LoginController:
         # Read settings from config.ini file
         settings = Settings('config.ini')
         config_values = settings.db_config_read('sqldb')
+        # Offline testing
+
         try:
             # Create engine
             self.connector = Connector(username, password, config_values)
@@ -52,6 +54,7 @@ class LoginController:
             if conn:
                 self.master.status_bar.status_set(f'{self.connector.settings_model.username} logged in')
                 self.logger.info(f"{self.connector.settings_model.username} successfully logged in")
+                # Restore indents for normal mode
                 self.login_view.master_frame.destroy()
                 # Call MainPage Controller
                 MainPageController.MainPageController(self.master, self.controller, self.connector)
@@ -63,4 +66,5 @@ class LoginController:
         except:
             # Executes if there are no values to pass or sqldb section is missing from conifg.ini
             self.master.status_bar.status_set('Unable to login. Check your configuration settings.')
+            self.logger('Unable to login. Check settings')
             MessageBox.MessageBox().onInfo('Unable to login\nGo to Edit -> Settings and configure your database settings.')

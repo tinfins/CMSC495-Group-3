@@ -36,7 +36,7 @@ class LoginGui(tk.Frame):
         mid_frame.pack()
         bottom_frame.pack()
         
-        img1 = ImageTk.PhotoImage(Image.open("src/assets/Logo.png").resize((80, 100), Image.ANTIALIAS))
+        img1 = ImageTk.PhotoImage(Image.open("src/assets/Logo.png").resize((50, 60), Image.ANTIALIAS))
         img_panel1 = ttk.Label(top_frame, image=img1)
         img_panel1.image = img1
 
@@ -61,7 +61,7 @@ class LoginGui(tk.Frame):
         # Pack GUI
         # Info Label packed in top_frame
         info_label.pack(side=tk.LEFT, padx=25, pady=35)
-        img_panel1.pack(side=tk.RIGHT, padx=25)
+        img_panel1.pack(side=tk.RIGHT, pady=15)
         # Grid layout for mid_frame
         username_label.grid(row=0, column=0, sticky='e', padx=10, pady=5)
         username_entry.grid(row=0, column=1, sticky='w', padx=10, pady=5)

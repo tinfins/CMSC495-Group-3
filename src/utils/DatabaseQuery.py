@@ -43,6 +43,7 @@ class DatabaseQuery:
                                                      prof_lname=result[0]['last_name'], prof_email=result[0]['email'])
             return self.prof_obj
         except:
+            self.logger.error('Can not retrieve professor information')
             return None
 
     def get_tables(self):
